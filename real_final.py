@@ -60,7 +60,7 @@ while True:
         balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
         USDT_balance = balance['BUSD']['free']                          # 계좌 잔고 조회
         XRP_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
-        long_amount = ((USDT_balance * start * leverage) / XRP_price    # 초기 롱 물량(거래코인 최소거래수량 이상)
+        long_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 롱 물량(거래코인 최소거래수량 이상)
         short_amount = 0                                                # 초기 숏 물량
         count = 0                                                       # 카운팅
         reference_price = XRP_price                                     # 기준값 설정
