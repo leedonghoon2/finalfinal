@@ -5,8 +5,8 @@ import asyncio
 
 
 # 계좌 조회
-api_key = 'BXq36qzwTCXlqSc1yHBWLGJJOCNEVTenTEC2srWOgEvuZjmGsUjrYlrzwO6WieEf'
-api_secret = 'rEsYjhrUdBy99D1Nexi1hpLFd5JwOYChwPkOJMA8uoBbc7mHdneqnsI4LMzrNNYa'
+api_key = ''
+api_secret = ''
 
 exchange = ccxt.binance({
     'apiKey': api_key,
@@ -34,15 +34,15 @@ error1 = 0
 error2 = 0
 
 # 설정값
-target_point = 0.024    # 익절 지점
-switching_point = 0.007   # 스위칭 지점
-switching_ratio = 2.32      # 스위칭 배율
-switching_count = 6      # 스위칭 횟수
-leverage = 20            # 레버리지
+target_point =     # 익절 지점
+switching_point =    # 스위칭 지점
+switching_ratio =       # 스위칭 배율
+switching_count =      # 스위칭 횟수
+leverage =             # 레버리지
 symbol = 'BTC/BUSD'      # 거래 코인
-start = 0.05
-token = "5847214544:AAGV58jOjPPpgpsdFKofoXBnaaNsZ9XfyMU"
-chat_id = '1496944404'
+start = 
+token = ""
+chat_id = ''
 
 
 async def main_시작(): #실행시킬 함수명 임의지정 
