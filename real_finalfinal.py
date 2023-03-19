@@ -5,8 +5,8 @@ import asyncio
 
 
 # 계좌 조회
-api_key = ''
-api_secret = ''
+api_key = 'BXq36qzwTCXlqSc1yHBWLGJJOCNEVTenTEC2srWOgEvuZjmGsUjrYlrzwO6WieEf'
+api_secret = 'rEsYjhrUdBy99D1Nexi1hpLFd5JwOYChwPkOJMA8uoBbc7mHdneqnsI4LMzrNNYa'
 
 exchange = ccxt.binance({
     'apiKey': api_key,
@@ -34,15 +34,15 @@ error1 = 0
 error2 = 0
 
 # 설정값
-target_point =     # 익절 지점
-switching_point =    # 스위칭 지점
-switching_ratio =       # 스위칭 배율
-switching_count =       # 스위칭 횟수
-leverage =             # 레버리지
+target_point = 0.024    # 익절 지점
+switching_point = 0.007   # 스위칭 지점
+switching_ratio = 2.32      # 스위칭 배율
+switching_count = 6      # 스위칭 횟수
+leverage = 20            # 레버리지
 symbol = 'BTC/BUSD'      # 거래 코인
-start = 
-token = ""
-chat_id = ''
+start = 0.05
+token = "5847214544:AAGV58jOjPPpgpsdFKofoXBnaaNsZ9XfyMU"
+chat_id = '1496944404'
 
 
 async def main_시작(): #실행시킬 함수명 임의지정 
@@ -60,7 +60,7 @@ while True:
         balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
         USDT_balance = balance['BUSD']['free']                          # 계좌 잔고 조회
         XRP_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
-        long_amount = ((USDT_balance * start) * leverage) / XRP_price    # 초기 롱 물량(거래코인 최소거래수량 이상)
+        long_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 롱 물량(거래코인 최소거래수량 이상)
         short_amount = 0                                                # 초기 숏 물량
         count = 0                                                       # 카운팅
         reference_price = XRP_price                                     # 기준값 설정
