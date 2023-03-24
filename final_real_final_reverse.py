@@ -34,12 +34,12 @@ error1 = 0
 error2 = 0
 
 # 설정값
-target_point = 0.028    # 익절 지점
-switching_point = 0.0007   # 스위칭 지점
+target_point = 0.03    # 손절 지점
+switching_point = 0.0015   # 스위칭 지점
 switching_ratio = 2      # 스위칭 배율
 switching_count = 10     # 스위칭 횟수
 leverage = 40            # 레버리지
-symbol = 'XRP/BUSD'      # 거래 코인
+symbol = 'BTC/BUSD'      # 거래 코인
 start = 0.1
 token = ""
 chat_id = ''
@@ -60,13 +60,20 @@ while True:
         balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
         USDT_balance = balance['BUSD']['free']                          # 계좌 잔고 조회
         XRP_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
-        short_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 롱 물량(거래코인 최소거래수량 이상)
-        long_amount = 0                                                # 초기 숏 물량
+        short_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 숏 물량(거래코인 최소거래수량 이상)
+        long_amount = 0                                                # 초기 롱 물량
         count = 0                                                       # 카운팅
         reference_price = XRP_price                                     # 기준값 설정
-        exchange.create_market_buy_order(symbol, short_amount)           # 초기 롱 물량 매수
+        exchange.create_market_sell_order(symbol, short_amount)           # 초기 숏 물량 매수
+
     
-    
+        async def main_숏진입(): #실행시킬 함수명 임의지정
+                    bot = telegram.Bot(token)
+                    await bot.send_message(chat_id,'숏 진입')
+
+                asyncio.run(main_숏진입()) #봇 실행하는 코드
+
+
     except:
         error1 += 1
         print("에러1")
@@ -91,7 +98,7 @@ while True:
             # 롱 포지션 물량이 없고 비트코인의 현재가가 기준값의 -1%일 경우 롱 포지션 생성(숏 포지션 3배 물량)
             if long_amount == 0 and XRP_price <= reference_price * (1 - switching_point) and count < switching_count:
                 long_amount = short_amount * switching_ratio
-                exchange.create_market_sell_order(symbol, long_amount)
+                exchange.create_market_buy_order(symbol, long_amount)
                 long_amount = long_amount - short_amount
                 short_amount = 0
                 count += 1
@@ -106,7 +113,7 @@ while True:
             # 숏 포지션 물량이 없고 비트코인의 현재가가 기준값과 동일할 경우 숏 포지션 생성(롱 포지션 3배 물량)
             elif short_amount == 0 and XRP_price >= reference_price and count < switching_count:
                 short_amount = long_amount * switching_ratio
-                exchange.create_market_buy_order(symbol, short_amount)
+                exchange.create_market_sell_order(symbol, short_amount)
                 short_amount = short_amount - long_amount
                 long_amount = 0
                 count += 1
@@ -118,9 +125,9 @@ while True:
 
                 asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
-            # 롱 포지션만 존재할 경우 묙표가 지점에서 모든 포지션 정리
+            # 롱 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
             elif short_amount == 0 and long_amount > 0 and XRP_price <= reference_price * (1 - (switching_point + target_point)):
-                exchange.create_market_buy_order(symbol, long_amount)
+                exchange.create_market_sell_order(symbol, long_amount)
                 print("%d번 스위칭 후 손절"%(count))
 
                 async def main_n번스위칭후손절(): #실행시킬 함수명 임의지정
@@ -153,7 +160,7 @@ while True:
 
             # 숏 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
             elif long_amount == 0 and short_amount > 0 and XRP_price >= reference_price * (1 + target_point): 
-                exchange.create_market_sell_order(symbol, short_amount)
+                exchange.create_market_buy_order(symbol, short_amount)
                 print("%d번 스위칭 후 손절"%(count))
 
                 async def main_n번스위칭후손절2(): #실행시킬 함수명 임의지정
@@ -200,13 +207,13 @@ while True:
 
             # 숏 보유중 - 마지막 스위칭 후 스위칭 지점에서 모든 포지션 정리
             elif long_amount == 0 and XRP_price <= reference_price * (1 - switching_point) and count >= switching_count:
-                exchange.create_market_sell_order(symbol, short_amount)
-                print("%d번 스위칭 후 손절"%(count))
+                exchange.create_market_buy_order(symbol, short_amount)
+                print("%d번 스위칭 후 익절"%(count))
 
-                async def main_n번스위칭후손절2(): #실행시킬 함수명 임의지정
+                async def main_n번스위칭후익절2(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,"%d번 스위칭 후 손절"%(count))
-                asyncio.run(main_n번스위칭후손절2()) #봇 실행하는 코드
+                    await bot.send_message(chat_id,"%d번 스위칭 후 익절"%(count))
+                asyncio.run(main_n번스위칭후익절2()) #봇 실행하는 코드
 
                 count2_1 += 1
                 break
@@ -235,7 +242,7 @@ while True:
     print("5번 스위칭 후 손절 %d회"%(count1_5))
     print("6번 스위칭 후 손절 %d회"%(count1_6))
     print("----------------------")
-    print("%d번 "%(count2_1))
+    print("%d번 익절"%(count2_1))
     print("----------------------")
 
     time.sleep(1)
