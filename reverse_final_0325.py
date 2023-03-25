@@ -110,7 +110,7 @@ while True:
                 async def main_롱스위칭(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
                     message = "롱 스위칭\n현재 시드 : {} BUSD"
-                    await bot.send_message(chat_id, message.format(BUSD_balance))
+                    await bot.send_message(chat_id, message.format(USDT_balance))
 
                 asyncio.run(main_롱스위칭()) #봇 실행하는 코드
 
@@ -126,7 +126,7 @@ while True:
                 async def main_숏스위칭(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
                     message = "숏 스위칭\n현재 시드 : {} BUSD"
-                    await bot.send_message(chat_id, message.format(BUSD_balance))
+                    await bot.send_message(chat_id, message.format(USDT_balance))
 
                 asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
@@ -138,7 +138,7 @@ while True:
                 async def main_n번스위칭후손절(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
                     message = "{}번 스위칭 후 손절\n현재 시드 : {} BUSD"
-                    await bot.send_message(chat_id, message.format(count, BUSD_balance))
+                    await bot.send_message(chat_id, message.format(count, USDT_balance))
                 asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
                 async def main_손절후대기(): #실행시킬 함수명 임의지정
@@ -179,7 +179,7 @@ while True:
                 async def main_n번스위칭후손절2(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
                     message = "{}번 스위칭 후 손절\n현재 시드 : {} BUSD"
-                    await bot.send_message(chat_id, message.format(count, BUSD_balance))
+                    await bot.send_message(chat_id, message.format(count, USDT_balance))
                 asyncio.run(main_n번스위칭후손절2()) #봇 실행하는 코드
 
                 async def main_손절후대기2(): #실행시킬 함수명 임의지정
@@ -220,7 +220,7 @@ while True:
                 async def main_n번스위칭후익절(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
                     message = "{}번 스위칭 후 익절/n현재 시드 : {} BUSD"
-                    await bot.send_message(chat_id, message.format(count, BUSD_balance))
+                    await bot.send_message(chat_id, message.format(count, USDT_balance))
 
                 asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
@@ -235,7 +235,7 @@ while True:
                 async def main_n번스위칭후익절2(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
                     message = "{}번 스위칭 후 익절\n현재 시드 : {} BUSD"
-                    await bot.send_message(chat_id, message.format(count, BUSD_balance))
+                    await bot.send_message(chat_id, message.format(count, USDT_balance))
 
                 asyncio.run(main_n번스위칭후익절2()) #봇 실행하는 코드
 
