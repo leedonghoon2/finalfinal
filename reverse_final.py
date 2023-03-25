@@ -38,9 +38,9 @@ target_point = 0.03    # 손절 지점
 switching_point = 0.0015   # 스위칭 지점
 switching_ratio = 2      # 스위칭 배율
 switching_count = 10     # 스위칭 횟수
-leverage = 40            # 레버리지
-symbol = 'BTC/BUSD'      # 거래 코인
-start = 0.1
+leverage = 10            # 레버리지
+symbol = 'XRP/BUSD'      # 거래 코인
+start = 0.2
 token = ""
 chat_id = ''
 
@@ -67,11 +67,14 @@ while True:
         exchange.create_market_sell_order(symbol, short_amount)           # 초기 숏 물량 매수
 
     
-        async def main_숏진입(): #실행시킬 함수명 임의지정
-                    bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,'숏 진입')
+        async def main_숏진입():
 
-                asyncio.run(main_숏진입()) #봇 실행하는 코드
+            bot = telegram.Bot(token)
+            message = "숏 진입\nmargin : {} BUSD"
+            await bot.send_message(chat_id, message.format(short_amount))
+
+        asyncio.run(main_숏진입())
+
 
 
     except:
@@ -106,7 +109,8 @@ while True:
 
                 async def main_롱스위칭(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,'롱 스위칭')
+                    message = "롱 스위칭\n현재 시드 : {} BUSD"
+                    await bot.send_message(chat_id, message.format(BUSD_balance))
 
                 asyncio.run(main_롱스위칭()) #봇 실행하는 코드
 
@@ -121,7 +125,8 @@ while True:
 
                 async def main_숏스위칭(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,'숏 스위칭')
+                    message = "숏 스위칭\n현재 시드 : {} BUSD"
+                    await bot.send_message(chat_id, message.format(BUSD_balance))
 
                 asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
@@ -132,8 +137,16 @@ while True:
 
                 async def main_n번스위칭후손절(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,"%d번 스위칭 후 손절"%(count))
+                    message = "{}번 스위칭 후 손절\n현재 시드 : {} BUSD"
+                    await bot.send_message(chat_id, message.format(count, BUSD_balance))
                 asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
+
+                async def main_손절후대기(): #실행시킬 함수명 임의지정
+                    bot = telegram.Bot(token)
+                    await bot.send_message(chat_id,'2시간 대기 후 재진입 예정')
+                asyncio.run(main_손절후대기()) #봇 실행하는 코드
+
+                time.sleep(7200)
 
                 if count == 1:
                     count1_1 += 1
@@ -165,8 +178,16 @@ while True:
 
                 async def main_n번스위칭후손절2(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,"%d번 스위칭 후 손절"%(count))
+                    message = "{}번 스위칭 후 손절\n현재 시드 : {} BUSD"
+                    await bot.send_message(chat_id, message.format(count, BUSD_balance))
                 asyncio.run(main_n번스위칭후손절2()) #봇 실행하는 코드
+
+                async def main_손절후대기2(): #실행시킬 함수명 임의지정
+                    bot = telegram.Bot(token)
+                    await bot.send_message(chat_id,'2시간 대기 후 재진입 예정')
+                asyncio.run(main_손절후대기2()) #봇 실행하는 코드
+
+                time.sleep(7200)
 
                 if count == 1:
                     count1_1 += 1
@@ -198,7 +219,8 @@ while True:
 
                 async def main_n번스위칭후익절(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,"%d번 스위칭 후 익절"%(count))
+                    message = "{}번 스위칭 후 익절/n현재 시드 : {} BUSD"
+                    await bot.send_message(chat_id, message.format(count, BUSD_balance))
 
                 asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
@@ -212,7 +234,9 @@ while True:
 
                 async def main_n번스위칭후익절2(): #실행시킬 함수명 임의지정
                     bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,"%d번 스위칭 후 익절"%(count))
+                    message = "{}번 스위칭 후 익절\n현재 시드 : {} BUSD"
+                    await bot.send_message(chat_id, message.format(count, BUSD_balance))
+
                 asyncio.run(main_n번스위칭후익절2()) #봇 실행하는 코드
 
                 count2_1 += 1
