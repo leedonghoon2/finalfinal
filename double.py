@@ -97,9 +97,7 @@ while True:
 
             while True:
                 try:
-                    # USDT 잔고 및 비트코인 현재가 확인
-                    balance = exchange.fetch_balance({'type':'future'})
-                    USDT_balance = balance['BUSD']['free']
+                    # 비트코인 현재가 확인
                     XRP_price = exchange.fetch_ticker(symbol)['last']
 
                     # 숏 포지션 물량이 없고 비트코인의 현재가가 기준값의 -1%일 경우 숏 포지션 생성(롱 포지션 3배 물량)
@@ -303,9 +301,7 @@ while True:
 
             while True:
                 try:
-                    # USDT 잔고 및 비트코인 현재가 확인
-                    balance = exchange.fetch_balance({'type':'future'})
-                    USDT_balance = balance['BUSD']['free']
+                    # 비트코인 현재가 확인
                     XRP_price = exchange.fetch_ticker(symbol)['last']
 
                     # 롱 포지션 물량이 없고 비트코인의 현재가가 기준값의 +1%일 경우 롱 포지션 생성(숏 포지션 3배 물량)
