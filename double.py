@@ -243,7 +243,7 @@ while True:
 
                     continue
 
-                time.sleep(1)
+                
 
 
             print("----------------------")
@@ -257,7 +257,7 @@ while True:
             print("----------------------")
             print("%d번 손절"%(count2_1))
             print("----------------------")
-            time.sleep(1)
+            
 
             
 
@@ -449,7 +449,7 @@ while True:
 
                     continue
 
-                time.sleep(1)
+                
 
 
             print("----------------------")
@@ -464,4 +464,4 @@ while True:
             print("%d번 손절"%(count2_1))
             print("----------------------")
         
-            time.sleep(1)
+            
