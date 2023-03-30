@@ -5,6 +5,8 @@ import asyncio
 import datetime
 import os
 
+# 현재 시간
+now = datetime.datetime.now()
 
 # 계좌 조회
 api_key = ''
