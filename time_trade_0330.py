@@ -5,8 +5,6 @@ import asyncio
 import datetime
 import os
 
-# 현재 시간
-now = datetime.datetime.now()
 
 # 계좌 조회
 api_key = ''
@@ -60,6 +58,10 @@ async def main_시작(): #실행시킬 함수명 임의지정
 asyncio.run(main_시작()) #봇 실행하는 코드
 
 while True:
+
+    # 현재 시간
+    now = datetime.datetime.now()
+
     if now.hour > 7 and now.hour < 21:
 
         if count3 > count4:
