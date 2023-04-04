@@ -1,3 +1,4 @@
+import time
 import ccxt
 import talib
 
