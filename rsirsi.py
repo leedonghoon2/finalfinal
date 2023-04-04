@@ -3,7 +3,7 @@ import ccxt
 import talib
 
 while true :
-exchange = ccxt.bitmex()  # 사용할 거래소 선택
+exchange = ccxt.binance()  # 사용할 거래소 선택
 symbol = 'BTC/USD'  # 사용할 티커 선택
 timeframe = '1m'  # 사용할 시간프레임 선택
 
