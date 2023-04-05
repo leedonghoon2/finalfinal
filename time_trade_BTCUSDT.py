@@ -66,7 +66,7 @@ while True:
 
     if now.hour != 25:
 
-        if count3 > count4:
+        if count3 < count4:
 
                 try:
                     # 초기설정 (최소거래수량 확인 필요)
@@ -261,7 +261,7 @@ while True:
                 print("%d번 손절"%(count2_1))
                 print("----------------------")
 
-        elif count3 <= count4:
+        elif count3 >= count4:
 
                 try:
                     # 초기설정 (최소거래수량 확인 필요)
