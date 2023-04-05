@@ -41,13 +41,13 @@ error1 = 0
 error2 = 0
 
 # 설정값
-target_point =  0.007      # 익절 지점
-switching_point =  0.01   # 스위칭 지점
-switching_ratio =  3     # 스위칭 배율
-switching_count =  4       # 스위칭 횟수
-leverage = 3              # 레버리지
-symbol = 'BTC/BUSD'        # 거래 코인
-start = 0.06
+target_point =  0.005      # 익절 지점
+switching_point =  0.0035   # 스위칭 지점
+switching_ratio =  2.1     # 스위칭 배율
+switching_count =  1       # 스위칭 횟수
+leverage = 30              # 레버리지
+symbol = 'BTC/USDT'        # 거래 코인
+start = 0.1
 token = ''
 chat_id = ''
 
@@ -64,7 +64,7 @@ while True:
     # 현재 시간
     now = datetime.datetime.now()
 
-    if now.hour > 7 and now.hour < 21:
+    if now.hour != 25:
 
         if count3 > count4:
 
