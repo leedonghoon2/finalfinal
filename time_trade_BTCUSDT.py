@@ -85,7 +85,7 @@ while True:
                     async def main_롱진입():
 
                         bot = telegram.Bot(token)
-                        message = "롱 진입 \n margin : {} token_symbol"
+                        message = "롱 진입 \n margin : {} {token_symbol}"
                         await bot.send_message(chat_id, message.format(long_amount))
 
                     asyncio.run(main_롱진입())         # 초기 롱 물량 매수
@@ -118,7 +118,7 @@ while True:
 
                             async def main_숏스위칭(): #실행시킬 함수명 임의지정
                                 bot = telegram.Bot(token)
-                                message = "숏 스위칭 \n margin : {} token_symbol"
+                                message = "숏 스위칭 \n margin : {} {token_symbol}"
                                 await bot.send_message(chat_id, message.format(short_amount))
 
                             asyncio.run(main_숏스위칭()) #봇 실행하는 코드
@@ -134,7 +134,7 @@ while True:
 
                             async def main_롱스위칭(): #실행시킬 함수명 임의지정
                                 bot = telegram.Bot(token)
-                                message = "롱 스위칭 \n margin : {} token_symbol"
+                                message = "롱 스위칭 \n margin : {} {token_symbol}"
                                 await bot.send_message(chat_id, message.format(long_amount))
 
                             asyncio.run(main_롱스위칭()) #봇 실행하는 코드
@@ -280,7 +280,7 @@ while True:
                     async def main_숏진입():
 
                         bot = telegram.Bot(token)
-                        message = "숏 진입 \n margin : {} token_symbol"
+                        message = "숏 진입 \n margin : {} {token_symbol}"
                         await bot.send_message(chat_id, message.format(short_amount))
 
                     asyncio.run(main_숏진입())           # 초기 숏 물량 매수
@@ -312,7 +312,7 @@ while True:
 
                             async def main_롱스위칭(): #실행시킬 함수명 임의지정
                                 bot = telegram.Bot(token)
-                                message = "롱 스위칭 \n margin : {} token_symbol"
+                                message = "롱 스위칭 \n margin : {} {token_symbol}"
                                 await bot.send_message(chat_id, message.format(long_amount))
 
                             asyncio.run(main_롱스위칭()) #봇 실행하는 코드
@@ -328,7 +328,7 @@ while True:
 
                             async def main_숏스위칭(): #실행시킬 함수명 임의지정
                                 bot = telegram.Bot(token)
-                                message = "숏 스위칭 \n margin : {} token_symbol"
+                                message = "숏 스위칭 \n margin : {} {token_symbol}"
                                 await bot.send_message(chat_id, message.format(short_amount))
 
                             asyncio.run(main_숏스위칭()) #봇 실행하는 코드
