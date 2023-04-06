@@ -226,7 +226,7 @@ while True:
 
                         # 롱 보유중 - 마지막 스위칭 후 스위칭 지점에서 모든 포지션 정리
                         elif short_amount == 0 and XRP_price <= reference_price * (1 - switching_point) and count >= switching_count:
-                            exchange.create_market_buy_order(symbol, long_amount)
+                            exchange.create_market_sell_order(symbol, long_amount)
                             print("%d번 스위칭 후 손절"%(count))
 
                             async def main_n번스위칭후손절2(): #실행시킬 함수명 임의지정
