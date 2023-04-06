@@ -41,21 +41,20 @@ error1 = 0
 error2 = 0
 
 # 설정값
-target_point =  0.005      # 익절 지점
-switching_point =  0.0035   # 스위칭 지점
-switching_ratio =  2.1     # 스위칭 배율
-switching_count =  1       # 스위칭 횟수
-leverage = 30              # 레버리지
+target_point =  0.01      # 익절 지점
+switching_point =  0.007   # 스위칭 지점
+switching_ratio =  3     # 스위칭 배율
+switching_count =  4       # 스위칭 횟수
+leverage = 3              # 레버리지
 symbol = 'BTC/USDT'        # 거래 코인
-start = 0.1
+start = 0.06
 token = ''
 chat_id = ''
-token_symbol = ''
 
 
 async def main_시작(): #실행시킬 함수명 임의지정 
     bot = telegram.Bot(token)
-    await bot.send_message(chat_id, f"수익실현 지점 = {target_point}\n스위칭 지점 = {switching_point}\n스위칭 배율 = {switching_ratio}\n스위칭 한도 = {switching_count}\n레버리지 = {leverage}\n거래코인 = {symbol}\n첫 매수물량 = {start}\n거래 코인 = {token_symbol}\n자동 매매를 시작합니다")
+    await bot.send_message(chat_id, f"수익실현 지점 = {target_point}\n스위칭 지점 = {switching_point}\n스위칭 배율 = {switching_ratio}\n스위칭 한도 = {switching_count}\n레버리지 = {leverage}\n거래코인 = {symbol}\n첫 매수물량 = {start}\n자동 매매를 시작합니다")
 
 
 asyncio.run(main_시작()) #봇 실행하는 코드
@@ -72,7 +71,7 @@ while True:
                 try:
                     # 초기설정 (최소거래수량 확인 필요)
                     balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
-                    USDT_balance = balance[token_symbol]['free']                          # 계좌 잔고 조회
+                    USDT_balance = balance['USDT']['free']                          # 계좌 잔고 조회
                     XRP_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
                     long_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 롱 물량(거래코인 최소거래수량 이상)
                     short_amount = 0                                                # 초기 숏 물량
@@ -85,7 +84,7 @@ while True:
                     async def main_롱진입():
 
                         bot = telegram.Bot(token)
-                        message = "롱 진입 \n margin : {} {token_symbol}"
+                        message = "롱 진입 \n margin : {} BUSD"
                         await bot.send_message(chat_id, message.format(long_amount))
 
                     asyncio.run(main_롱진입())         # 초기 롱 물량 매수
@@ -118,7 +117,7 @@ while True:
 
                             async def main_숏스위칭(): #실행시킬 함수명 임의지정
                                 bot = telegram.Bot(token)
-                                message = "숏 스위칭 \n margin : {} {token_symbol}"
+                                message = "숏 스위칭 \n margin : {} BUSD"
                                 await bot.send_message(chat_id, message.format(short_amount))
 
                             asyncio.run(main_숏스위칭()) #봇 실행하는 코드
@@ -134,7 +133,7 @@ while True:
 
                             async def main_롱스위칭(): #실행시킬 함수명 임의지정
                                 bot = telegram.Bot(token)
-                                message = "롱 스위칭 \n margin : {} {token_symbol}"
+                                message = "롱 스위칭 \n margin : {} BUSD"
                                 await bot.send_message(chat_id, message.format(long_amount))
 
                             asyncio.run(main_롱스위칭()) #봇 실행하는 코드
@@ -267,7 +266,7 @@ while True:
                 try:
                     # 초기설정 (최소거래수량 확인 필요)
                     balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
-                    USDT_balance = balance[token_symbol]['free']                          # 계좌 잔고 조회
+                    USDT_balance = balance['USDT']['free']                          # 계좌 잔고 조회
                     XRP_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
                     long_amount = 0                                                 # 초기 롱 물량(거래코인 최소거래수량 이상)
                     short_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 숏 물량
@@ -280,7 +279,7 @@ while True:
                     async def main_숏진입():
 
                         bot = telegram.Bot(token)
-                        message = "숏 진입 \n margin : {} {token_symbol}"
+                        message = "숏 진입 \n margin : {} BUSD"
                         await bot.send_message(chat_id, message.format(short_amount))
 
                     asyncio.run(main_숏진입())           # 초기 숏 물량 매수
@@ -312,7 +311,7 @@ while True:
 
                             async def main_롱스위칭(): #실행시킬 함수명 임의지정
                                 bot = telegram.Bot(token)
-                                message = "롱 스위칭 \n margin : {} {token_symbol}"
+                                message = "롱 스위칭 \n margin : {} BUSD"
                                 await bot.send_message(chat_id, message.format(long_amount))
 
                             asyncio.run(main_롱스위칭()) #봇 실행하는 코드
@@ -328,7 +327,7 @@ while True:
 
                             async def main_숏스위칭(): #실행시킬 함수명 임의지정
                                 bot = telegram.Bot(token)
-                                message = "숏 스위칭 \n margin : {} {token_symbol}"
+                                message = "숏 스위칭 \n margin : {} BUSD"
                                 await bot.send_message(chat_id, message.format(short_amount))
 
                             asyncio.run(main_숏스위칭()) #봇 실행하는 코드
