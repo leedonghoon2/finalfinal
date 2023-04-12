@@ -139,7 +139,7 @@ while True:
                             short_amount = short_amount - long_amount
                             long_amount = 0
                             count += 1
-                            print("숏 스위칭")
+                            
 
                             asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
@@ -150,94 +150,55 @@ while True:
                             long_amount = long_amount - short_amount
                             short_amount = 0
                             count += 1
-                            print("롱 스위칭")
+                            
 
                             asyncio.run(main_롱스위칭()) #봇 실행하는 코드
 
                         # 숏 포지션만 존재할 경우 묙표가 지점에서 모든 포지션 정리
                         elif long_amount == 0 and short_amount > 0 and XRP_price <= reference_price * (1 - (switching_point + target_point)):
                             exchange.create_market_buy_order(symbol, short_amount)
-                            print("%d번 스위칭 후 익절"%(count))
+                            
 
                             count4 += 1
 
                             asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
-                            if count == 1:
-                                count1_1 += 1
-
-                            elif count == 2:
-                                count1_2 += 1
-
-                            elif count == 3:
-                                count1_3 += 1
-
-                            elif count == 4:
-                                count1_4 += 1
-
-                            elif count == 5:
-                                count1_5 += 1
-
-                            elif count == 6:
-                                count1_6 += 1
-
-                            elif count == 0:
-                                count1_0 += 1
-
+                          
                             break
 
                         # 롱 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
                         elif short_amount == 0 and long_amount > 0 and XRP_price >= reference_price * (1 + target_point): 
                             exchange.create_market_sell_order(symbol, long_amount)
-                            print("%d번 스위칭 후 익절"%(count))
+                            
 
                             count3 += 1
 
                             asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
-                            if count == 1:
-                                count1_1 += 1
-
-                            elif count == 2:
-                                count1_2 += 1
-
-                            elif count == 3:
-                                count1_3 += 1
-
-                            elif count == 4:
-                                count1_4 += 1
-
-                            elif count == 5:
-                                count1_5 += 1
-
-                            elif count == 6:
-                                count1_6 += 1
-
-                            elif count == 0:
-                                count1_0 += 1
+                            
 
                             break
                             
                         # 숏 보유중 - 마지막 스위칭 후 기준값 지점에서 모든 포지션 정리
                         elif long_amount == 0 and XRP_price >= reference_price and count >= switching_count:
                             exchange.create_market_buy_order(symbol, short_amount)
-                            print("%d번 스위칭 후 손절"%(count))
+                            
 
                             asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
-                            count2_1 += 1
+                            
                             count3 += 1
                             break
 
                         # 롱 보유중 - 마지막 스위칭 후 스위칭 지점에서 모든 포지션 정리
                         elif short_amount == 0 and XRP_price <= reference_price * (1 - switching_point) and count >= switching_count:
                             exchange.create_market_sell_order(symbol, long_amount)
-                            print("%d번 스위칭 후 손절"%(count))
+                            
 
                             
                             asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
-                            count2_1 += 1
+                            
                             count4 += 1
                             break
 
@@ -297,67 +258,27 @@ while True:
                         # 롱 포지션만 존재할 경우 묙표가 지점에서 모든 포지션 정리
                         elif short_amount == 0 and long_amount > 0 and XRP_price >= reference_price * (1 + (switching_point + target_point)):
                             exchange.create_market_sell_order(symbol, long_amount)
-                            print("%d번 스위칭 후 익절"%(count))
+                            
 
                             count3 += 1
 
                             
                             asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
-                            if count == 1:
-                                count1_1 += 1
-
-                            elif count == 2:
-                                count1_2 += 1
-
-                            elif count == 3:
-                                count1_3 += 1
-
-                            elif count == 4:
-                                count1_4 += 1
-
-                            elif count == 5:
-                                count1_5 += 1
-
-                            elif count == 6:
-                                count1_6 += 1
-
-                            elif count == 0:
-                                count1_0 += 1
-
+                            
                             break
 
                         # 숏 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
                         elif long_amount == 0 and short_amount > 0 and XRP_price <= reference_price * (1 - target_point): 
                             exchange.create_market_buy_order(symbol, short_amount)
-                            print("%d번 스위칭 후 익절"%(count))
+                            
 
                             count4 += 1
 
                             
                             asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
-                            if count == 1:
-                                count1_1 += 1
-
-                            elif count == 2:
-                                count1_2 += 1
-
-                            elif count == 3:
-                                count1_3 += 1
-
-                            elif count == 4:
-                                count1_4 += 1
-
-                            elif count == 5:
-                                count1_5 += 1
-
-                            elif count == 6:
-                                count1_6 += 1
-
-                            elif count == 0:
-                                count1_0 += 1
-
+                            
                             break
                             
                         # 숏 보유중 - 마지막 스위칭 후 기준값 지점에서 모든 포지션 정리
