@@ -116,7 +116,7 @@ while True:
                     USDT_balance = balance['BUSD']['free']                          # 계좌 잔고 조회
                     XRP_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
                     if count_마틴 <= count_마틴_limit and count_마틴 > 0 :
-                        long_amount = ((USDT_balance * start * leverage) / XRP_price)*2^count_마틴
+                        long_amount = ((USDT_balance * start * leverage) / XRP_price)*2**count_마틴
                     else :
                         long_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 롱 물량(거래코인 최소거래수량 이상)
                     short_amount = 0                                                # 초기 숏 물량
@@ -231,7 +231,7 @@ while True:
                     XRP_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
                     long_amount = 0
                     if count_마틴 <= count_마틴_limit and count_마틴 > 0 :
-                        short_amount = ((USDT_balance * start * leverage) / XRP_price)*2^count_마틴
+                        short_amount = ((USDT_balance * start * leverage) / XRP_price)*2**count_마틴
                     else :                                                     # 초기 롱 물량(거래코인 최소거래수량 이상)
                         short_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 숏 물량
                     count = 0 
