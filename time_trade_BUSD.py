@@ -24,6 +24,7 @@ exchange = ccxt.binance({
 })
 
 # 카운팅
+count_마틴 = 0
 count1_0 = 0
 count1_1 = 0
 count1_2 = 0
@@ -163,7 +164,8 @@ while True:
 
                             asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
-                          
+                            count_마틴 = 0
+
                             break
 
                         # 롱 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
@@ -175,8 +177,8 @@ while True:
 
                             asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
-                            
-
+                            count_마틴 = 0
+              
                             break
                             
                         # 숏 보유중 - 마지막 스위칭 후 기준값 지점에서 모든 포지션 정리
@@ -188,6 +190,9 @@ while True:
 
                             
                             count3 += 1
+
+                            count_마틴 += 1
+
                             break
 
                         # 롱 보유중 - 마지막 스위칭 후 스위칭 지점에서 모든 포지션 정리
@@ -198,7 +203,8 @@ while True:
                             
                             asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
-                            
+                            count_마틴 += 1
+
                             count4 += 1
                             break
 
