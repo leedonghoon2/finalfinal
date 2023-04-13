@@ -62,12 +62,12 @@ async def main_시작(): #실행시킬 함수명 임의지정
 async def main_롱진입():
     bot = telegram.Bot(token)
     message = "롱 진입 \n margin : {} BUSD"
-    await bot.send_message(chat_id, message.format(long_amount))
+    await bot.send_message(chat_id, message.format(long_amount * XRP_price))
 
 async def main_숏진입():
     bot = telegram.Bot(token)
     message = "숏 진입 \n margin : {} BUSD"
-    await bot.send_message(chat_id, message.format(short_amount))
+    await bot.send_message(chat_id, message.format(short_amount * XRP_price))
 
 async def main_에러1(): #실행시킬 함수명 임의지정
     bot = telegram.Bot(token)
@@ -80,12 +80,12 @@ async def main_에러2(): #실행시킬 함수명 임의지정
 async def main_숏스위칭(): #실행시킬 함수명 임의지정
     bot = telegram.Bot(token)
     message = "숏 스위칭 \n margin : {} BUSD"
-    await bot.send_message(chat_id, message.format(short_amount))
+    await bot.send_message(chat_id, message.format(short_amount * XRP_price))
 
 async def main_롱스위칭(): #실행시킬 함수명 임의지정
     bot = telegram.Bot(token)
     message = "롱 스위칭 \n margin : {} BUSD"
-    await bot.send_message(chat_id, message.format(long_amount))
+    await bot.send_message(chat_id, message.format(long_amount * XRP_price))
 
 async def main_n번스위칭후익절(): #실행시킬 함수명 임의지정
     bot = telegram.Bot(token)
