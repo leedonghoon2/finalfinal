@@ -24,6 +24,7 @@ exchange = ccxt.binance({
 })
 
 # 카운팅
+count_마틴 = 0
 count1_0 = 0
 count1_1 = 0
 count1_2 = 0
@@ -50,6 +51,7 @@ symbol = '/USDT'        # 거래 코인
 start = 0.06
 token = ''
 chat_id = ''
+거래토큰 = ''
 
 # 텔레 봇 함수 정의
 
@@ -60,12 +62,12 @@ async def main_시작(): #실행시킬 함수명 임의지정
 async def main_롱진입():
     bot = telegram.Bot(token)
     message = "롱 진입 \n margin : {} BUSD"
-    await bot.send_message(chat_id, message.format(long_amount))
+    await bot.send_message(chat_id, message.format(long_amount * XRP_price))
 
 async def main_숏진입():
     bot = telegram.Bot(token)
     message = "숏 진입 \n margin : {} BUSD"
-    await bot.send_message(chat_id, message.format(short_amount))
+    await bot.send_message(chat_id, message.format(short_amount * XRP_price))
 
 async def main_에러1(): #실행시킬 함수명 임의지정
     bot = telegram.Bot(token)
@@ -78,12 +80,12 @@ async def main_에러2(): #실행시킬 함수명 임의지정
 async def main_숏스위칭(): #실행시킬 함수명 임의지정
     bot = telegram.Bot(token)
     message = "숏 스위칭 \n margin : {} BUSD"
-    await bot.send_message(chat_id, message.format(short_amount))
+    await bot.send_message(chat_id, message.format(short_amount * XRP_price))
 
 async def main_롱스위칭(): #실행시킬 함수명 임의지정
     bot = telegram.Bot(token)
     message = "롱 스위칭 \n margin : {} BUSD"
-    await bot.send_message(chat_id, message.format(long_amount))
+    await bot.send_message(chat_id, message.format(long_amount * XRP_price))
 
 async def main_n번스위칭후익절(): #실행시킬 함수명 임의지정
     bot = telegram.Bot(token)
@@ -111,7 +113,7 @@ while True:
                 try:
                     # 초기설정 (최소거래수량 확인 필요)
                     balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
-                    USDT_balance = balance['USDT']['free']                          # 계좌 잔고 조회
+                    USDT_balance = balance[거래토큰]['free']                          # 계좌 잔고 조회
                     XRP_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
                     long_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 롱 물량(거래코인 최소거래수량 이상)
                     short_amount = 0                                                # 초기 숏 물량
@@ -126,7 +128,8 @@ while True:
                 except:
 
                     asyncio.run(main_에러1()) #봇 실행하는 코드
-
+                    
+                    continue
                 while True:
                     try:
                         # 비트코인 현재가 확인
@@ -163,7 +166,8 @@ while True:
 
                             asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
-                          
+                            count_마틴 = 0
+
                             break
 
                         # 롱 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
@@ -175,8 +179,8 @@ while True:
 
                             asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
-                            
-
+                            count_마틴 = 0
+              
                             break
                             
                         # 숏 보유중 - 마지막 스위칭 후 기준값 지점에서 모든 포지션 정리
@@ -188,6 +192,9 @@ while True:
 
                             
                             count3 += 1
+
+                            count_마틴 += 1
+
                             break
 
                         # 롱 보유중 - 마지막 스위칭 후 스위칭 지점에서 모든 포지션 정리
@@ -198,7 +205,8 @@ while True:
                             
                             asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
-                            
+                            count_마틴 += 1
+
                             count4 += 1
                             break
 
@@ -213,7 +221,7 @@ while True:
                 try:
                     # 초기설정 (최소거래수량 확인 필요)
                     balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
-                    USDT_balance = balance['USDT']['free']                          # 계좌 잔고 조회
+                    USDT_balance = balance[거래토큰]['free']                          # 계좌 잔고 조회
                     XRP_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
                     long_amount = 0                                                 # 초기 롱 물량(거래코인 최소거래수량 이상)
                     short_amount = (USDT_balance * start * leverage) / XRP_price    # 초기 숏 물량
@@ -227,7 +235,8 @@ while True:
                 
                 except:
                     asyncio.run(main_에러1()) #봇 실행하는 코드
-
+                    
+                    continue
                 while True:
                     try:
                         # 비트코인 현재가 확인
