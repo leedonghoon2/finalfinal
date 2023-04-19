@@ -12,8 +12,8 @@ import pandas as pd
 now = datetime.datetime.now()
 
 # 계좌 조회
-api_key = 'RyrXLKBeTj4o5qQPXVelszy4x0KmuA4GLLEjf9fTG3xI5qvKSOQPEYoROtsVVq7V'
-api_secret = 'iLmSAkbZaUKNJKRiIuIZtNxNSauJvKuQTlQRR8noefs3M1urBXkQYbqgLozcIRKR'
+api_key = ''
+api_secret = ''
 
 exchange = ccxt.binance({
     'apiKey': api_key,
