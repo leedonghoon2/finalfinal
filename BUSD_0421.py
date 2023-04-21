@@ -52,6 +52,45 @@ async def main_시작(): #실행시킬 함수명 임의지정
     bot = telegram.Bot(token)
     await bot.send_message(chat_id, f"수익실현 지점 = {target_point}\n스위칭 지점 = {switching_point}\n스위칭 배율 = {switching_ratio}\n스위칭 한도 = {switching_count}\n레버리지 = {leverage}\n거래코인 = {symbol}\n첫 매수물량 = {start}\n자동 매매를 시작합니다")
 
+async def main_롱진입():
+    bot = telegram.Bot(token)
+    message = "롱 진입 \n진입가 : {}"
+    await bot.send_message(chat_id, message.format(reference_price))
+
+async def main_숏진입():
+    bot = telegram.Bot(token)
+    message = "숏 진입 \n 진입가 : {}"
+    await bot.send_message(chat_id, message.format(reference_price))
+
+async def main_롱스위칭(): #실행시킬 함수명 임의지정
+    bot = telegram.Bot(token)
+    message = "롱 스위칭 \n 진입가 : {}"
+    await bot.send_message(chat_id, message.format(simbol_price))
+
+async def main_숏스위칭(): #실행시킬 함수명 임의지정
+    bot = telegram.Bot(token)
+    message = "숏 스위칭 \n 진입가 : {}"
+    await bot.send_message(chat_id, message.format(simbol_price))
+
+async def main_n번스위칭후익절(): #실행시킬 함수명 임의지정
+    bot = telegram.Bot(token)
+    await bot.send_message(chat_id,"%d번 스위칭 후 익절"%(count))
+
+async def main_n번스위칭후손절(): #실행시킬 함수명 임의지정
+    bot = telegram.Bot(token)
+    await bot.send_message(chat_id,"%d번 스위칭 후 손절"%(count))
+
+async def main_에러1():       
+    bot = telegram.Bot(token)
+    await bot.send_message(chat_id,'에러1')
+
+async def main_에러2(): #실행시킬 함수명 임의지정
+    bot = telegram.Bot(token)
+    await bot.send_message(chat_id,'에러2')
+
+async def main_정산():
+    bot = telegram.Bot(token)
+    await bot.send_message(chat_id, f"0번 스위칭 후 익절 = {count1_0}\n1번 스위칭 후 익절 = {count1_1}\n손절 = {count2_1}")
 
 asyncio.run(main_시작()) #봇 실행하는 코드
 
@@ -76,24 +115,12 @@ while True:
                 count3 = 0
                 count4 = 0
 
-                async def main_롱진입():
-
-                    bot = telegram.Bot(token)
-                    message = "롱 진입 \n진입가 : {}"
-                    await bot.send_message(chat_id, message.format(reference_price))
-
                 asyncio.run(main_롱진입())         # 초기 롱 물량 매수
             
             
             except:
                 error1 += 1
-                print("에러1")
-
-                async def main_에러1(): #실행시킬 함수명 임의지정
-                    
-                    bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,'에러1')
-
+                
                 asyncio.run(main_에러1()) #봇 실행하는 코드
                 time.sleep(10)
                 continue
@@ -110,12 +137,7 @@ while True:
                         short_amount = short_amount - long_amount
                         long_amount = 0
                         count += 1
-                        print("숏 스위칭")
-
-                        async def main_숏스위칭(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            message = "숏 스위칭 \n 진입가 : {}"
-                            await bot.send_message(chat_id, message.format(simbol_price))
+                        
 
                         asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
@@ -127,12 +149,7 @@ while True:
                         long_amount = long_amount - short_amount
                         short_amount = 0
                         count += 1
-                        print("롱 스위칭")
-
-                        async def main_롱스위칭(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            message = "롱 스위칭 \n 진입가 : {}"
-                            await bot.send_message(chat_id, message.format(simbol_price))
+                        
 
                         asyncio.run(main_롱스위칭()) #봇 실행하는 코드
 
@@ -141,15 +158,14 @@ while True:
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
                         exchange.create_market_buy_order(symbol, amount)
-                        print("%d번 스위칭 후 익절"%(count))
+                        
 
                         count4 += 1
                         martin_count = 0
 
-                        async def main_n번스위칭후익절(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            await bot.send_message(chat_id,"%d번 스위칭 후 익절"%(count))
+                        
                         asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
+
 
                         if count == 1:
                             count1_1 += 1
@@ -157,6 +173,7 @@ while True:
                         elif count == 0:
                             count1_0 += 1
 
+                        asyncio.run(main_정산())
                         break
 
                     # 롱 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
@@ -164,21 +181,21 @@ while True:
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
                         exchange.create_market_sell_order(symbol, amount)
-                        print("%d번 스위칭 후 익절"%(count))
-
+                        
                         count3 += 1
                         martin_count = 0
 
-                        async def main_n번스위칭후익절2(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            await bot.send_message(chat_id,"%d번 스위칭 후 익절"%(count))
-                        asyncio.run(main_n번스위칭후익절2()) #봇 실행하는 코드
+                        
+                        asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
+
 
                         if count == 1:
                             count1_1 += 1
 
                         elif count == 0:
                             count1_0 += 1
+
+                        asyncio.run(main_정산())
 
                         break
                         
@@ -187,16 +204,15 @@ while True:
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
                         exchange.create_market_buy_order(symbol, amount)
-                        print("%d번 스위칭 후 손절"%(count))
-
-                        async def main_n번스위칭후손절(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            await bot.send_message(chat_id,"%d번 스위칭 후 손절"%(count))
+                        
 
                         asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
+
                         count2_1 += 1
                         count3 += 1
+
+                        asyncio.run(main_정산())
 
                         if martin_count < martin_limit:
                             martin_count += 1
@@ -208,16 +224,15 @@ while True:
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
                         exchange.create_market_buy_order(symbol, amount)
-                        print("%d번 스위칭 후 손절"%(count))
+                        
+                        asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
-                        async def main_n번스위칭후손절2(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            await bot.send_message(chat_id,"%d번 스위칭 후 손절"%(count))
-                        asyncio.run(main_n번스위칭후손절2()) #봇 실행하는 코드
 
                         count2_1 += 1
                         count4 += 1
                         
+                        asyncio.run(main_정산())
+
                         if martin_count < martin_limit:
                             martin_count += 1
 
@@ -225,22 +240,13 @@ while True:
 
                 except:
                     error2 += 1
-                    print("에러2")
-
-                    async def main_에러2(): #실행시킬 함수명 임의지정
-                        bot = telegram.Bot(token)
-                        await bot.send_message(chat_id,'에러2')
+                   
 
                     asyncio.run(main_에러2()) #봇 실행하는 코드
-                    time.sleep(10)
+                    time.sleep(1)
                     continue
 
-            print("----------------------")
-            print("0번 스위칭 후 익절 %d회"%(count1_0))
-            print("1번 스위칭 후 익절 %d회"%(count1_1))
-            print("----------------------")
-            print("%d번 손절"%(count2_1))
-            print("----------------------")
+            
 
     elif count3 <= count4:
 
@@ -261,23 +267,13 @@ while True:
                 count3 = 0
                 count4 = 0
 
-                async def main_숏진입():
-
-                    bot = telegram.Bot(token)
-                    message = "숏 진입 \n 진입가 : {}"
-                    await bot.send_message(chat_id, message.format(reference_price))
+                
 
                 asyncio.run(main_숏진입())           # 초기 숏 물량 매수
             
             except:
                 error1 += 1
-                print("에러1")
-
-                async def main_에러1(): #실행시킬 함수명 임의지정
-                    
-                    bot = telegram.Bot(token)
-                    await bot.send_message(chat_id,'에러1')
-
+                
                 asyncio.run(main_에러1()) #봇 실행하는 코드
                 time.sleep(10)
                 continue
@@ -294,12 +290,8 @@ while True:
                         long_amount = long_amount - short_amount
                         short_amount = 0
                         count += 1
-                        print("롱 스위칭")
-
-                        async def main_롱스위칭(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            message = "롱 스위칭 \n 진입가 : {}"
-                            await bot.send_message(chat_id, message.format(simbol_price))
+                        
+                        
 
                         asyncio.run(main_롱스위칭()) #봇 실행하는 코드
 
@@ -310,12 +302,7 @@ while True:
                         short_amount = short_amount - long_amount
                         long_amount = 0
                         count += 1
-                        print("숏 스위칭")
-
-                        async def main_숏스위칭(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            message = "숏 스위칭 \n 진입가 : {}"
-                            await bot.send_message(chat_id, message.format(simbol_price))
+                        
 
                         asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
@@ -324,14 +311,11 @@ while True:
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
                         exchange.create_market_sell_order(symbol, amount)
-                        print("%d번 스위칭 후 익절"%(count))
-
+                        
                         count3 += 1
                         martin_count = 0
 
-                        async def main_n번스위칭후익절(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            await bot.send_message(chat_id,"%d번 스위칭 후 익절"%(count))
+                        
                         asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
                         if count == 1:
@@ -340,6 +324,8 @@ while True:
                         elif count == 0:
                             count1_0 += 1
 
+                        asyncio.run(main_정산())
+
                         break
 
                     # 숏 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
@@ -347,21 +333,21 @@ while True:
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
                         exchange.create_market_buy_order(symbol, amount)
-                        print("%d번 스위칭 후 익절"%(count))
-
+                        
                         count4 += 1
                         martin_count = 0
 
-                        async def main_n번스위칭후익절2(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            await bot.send_message(chat_id,"%d번 스위칭 후 익절"%(count))
-                        asyncio.run(main_n번스위칭후익절2()) #봇 실행하는 코드
+                        
+                        asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
+
 
                         if count == 1:
                             count1_1 += 1
 
                         elif count == 0:
                             count1_0 += 1
+
+                        asyncio.run(main_정산())
 
                         break
                         
@@ -370,17 +356,17 @@ while True:
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
                         exchange.create_market_buy_order(symbol, amount)
-                        print("%d번 스위칭 후 손절"%(count))
+                        
                         
                         count3 += 1
 
-                        async def main_n번스위칭후손절(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            await bot.send_message(chat_id,"%d번 스위칭 후 손절"%(count))
+                        
 
                         asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
                         count2_1 += 1
+
+                        asyncio.run(main_정산())
 
                         if martin_count < martin_limit:
                             martin_count += 1
@@ -392,16 +378,16 @@ while True:
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
                         exchange.create_market_sell_order(symbol, amount)
-                        print("%d번 스위칭 후 손절"%(count))
+                        
 
                         count4 += 1
 
-                        async def main_n번스위칭후손절2(): #실행시킬 함수명 임의지정
-                            bot = telegram.Bot(token)
-                            await bot.send_message(chat_id,"%d번 스위칭 후 손절"%(count))
-                        asyncio.run(main_n번스위칭후손절2()) #봇 실행하는 코드
+                        
+                        asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
                         count2_1 += 1
+
+                        asyncio.run(main_정산())
 
                         if martin_count < martin_limit:
                             martin_count += 1
@@ -410,19 +396,8 @@ while True:
 
                 except:
                     error2 += 1
-                    print("에러2")
-
-                    async def main_에러2(): #실행시킬 함수명 임의지정
-                        bot = telegram.Bot(token)
-                        await bot.send_message(chat_id,'에러2')
+                    
 
                     asyncio.run(main_에러2()) #봇 실행하는 코드
-                    time.sleep(10)
+                    time.sleep(1)
                     continue
-
-            print("----------------------")
-            print("0번 스위칭 후 익절 %d회"%(count1_0))
-            print("1번 스위칭 후 익절 %d회"%(count1_1))
-            print("----------------------")
-            print("%d번 손절"%(count2_1))
-            print("----------------------")
