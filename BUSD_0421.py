@@ -90,7 +90,7 @@ async def main_에러2(): #실행시킬 함수명 임의지정
 
 async def main_정산():
     bot = telegram.Bot(token)
-    await bot.send_message(chat_id, f"0번 스위칭 후 익절 = {count1_0}\n1번 스위칭 후 익절 = {count1_1}\n손절 = {count2_1}")
+    await bot.send_message(chat_id, f"익절 = {count1_0 + count1_1}\n손절 = {count2_1}")
 
 asyncio.run(main_시작()) #봇 실행하는 코드
 
