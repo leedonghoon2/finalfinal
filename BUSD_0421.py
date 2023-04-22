@@ -115,7 +115,7 @@ while True:
                 count3 = 0
                 count4 = 0
 
-                asyncio.run(main_롱진입())         # 초기 롱 물량 매수
+                # asyncio.run(main_롱진입())         # 초기 롱 물량 매수
             
             
             except:
