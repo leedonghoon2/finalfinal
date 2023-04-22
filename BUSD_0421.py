@@ -304,12 +304,12 @@ while True:
                         
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
+
                         # asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
                     # 롱 포지션만 존재할 경우 묙표가 지점에서 모든 포지션 정리
                     elif short_amount == 0 and long_amount > 0 and simbol_price >= reference_price * (1 + (switching_point + target_point)):
-                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
-                        amount = positions[0]['contracts']
+                        
                         exchange.create_market_sell_order(symbol, amount)
                         
                         count3 += 1
@@ -330,8 +330,7 @@ while True:
 
                     # 숏 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
                     elif long_amount == 0 and short_amount > 0 and simbol_price <= reference_price * (1 - target_point): 
-                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
-                        amount = positions[0]['contracts']
+                        
                         exchange.create_market_buy_order(symbol, amount)
                         
                         count4 += 1
@@ -353,8 +352,7 @@ while True:
                         
                     # 숏 보유중 - 마지막 스위칭 후 기준값 지점에서 모든 포지션 정리
                     elif long_amount == 0 and simbol_price >= reference_price * (1 + switching_point) and count >= switching_count:
-                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
-                        amount = positions[0]['contracts']
+                        
                         exchange.create_market_buy_order(symbol, amount)
                         
                         
@@ -375,8 +373,7 @@ while True:
 
                     # 롱 보유중 - 마지막 스위칭 후 스위칭 지점에서 모든 포지션 정리
                     elif short_amount == 0 and simbol_price <= reference_price and count >= switching_count:
-                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
-                        amount = positions[0]['contracts']
+                        
                         exchange.create_market_sell_order(symbol, amount)
                         
 
