@@ -138,8 +138,9 @@ while True:
                         long_amount = 0
                         count += 1
                         
-
-                        asyncio.run(main_숏스위칭()) #봇 실행하는 코드
+                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
+                        amount = positions[0]['contracts']
+                        # asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
                     # 롱 포지션 물량이 없고 비트코인의 현재가가 기준값과 동일할 경우 롱 포지션 생성(숏 포지션 3배 물량)
                     elif long_amount == 0 and simbol_price >= reference_price and count < switching_count:
@@ -150,13 +151,13 @@ while True:
                         short_amount = 0
                         count += 1
                         
-
-                        asyncio.run(main_롱스위칭()) #봇 실행하는 코드
+                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
+                        amount = positions[0]['contracts']
+                        # asyncio.run(main_롱스위칭()) #봇 실행하는 코드
 
                     # 숏 포지션만 존재할 경우 묙표가 지점에서 모든 포지션 정리
                     elif long_amount == 0 and short_amount > 0 and simbol_price <= reference_price * (1 - (switching_point + target_point)):
-                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
-                        amount = positions[0]['contracts']
+                        
                         exchange.create_market_buy_order(symbol, amount)
                         
 
@@ -164,7 +165,7 @@ while True:
                         martin_count = 0
 
                         
-                        asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
+                        # asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
 
                         if count == 1:
@@ -178,15 +179,14 @@ while True:
 
                     # 롱 포지션만 존재할 경우 목표가 지점에서 모든 포지션 정리
                     elif short_amount == 0 and long_amount > 0 and simbol_price >= reference_price * (1 + target_point): 
-                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
-                        amount = positions[0]['contracts']
+                        
                         exchange.create_market_sell_order(symbol, amount)
                         
                         count3 += 1
                         martin_count = 0
 
                         
-                        asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
+                        # asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
 
                         if count == 1:
@@ -201,12 +201,11 @@ while True:
                         
                     # 숏 보유중 - 마지막 스위칭 후 기준값 지점에서 모든 포지션 정리
                     elif long_amount == 0 and simbol_price >= reference_price and count >= switching_count:
-                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
-                        amount = positions[0]['contracts']
+                        
                         exchange.create_market_buy_order(symbol, amount)
                         
 
-                        asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
+                        # asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
 
                         count2_1 += 1
@@ -221,11 +220,10 @@ while True:
 
                     # 롱 보유중 - 마지막 스위칭 후 스위칭 지점에서 모든 포지션 정리
                     elif short_amount == 0 and simbol_price <= reference_price * (1 - switching_point) and count >= switching_count:
-                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
-                        amount = positions[0]['contracts']
+                        
                         exchange.create_market_buy_order(symbol, amount)
                         
-                        asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
+                        # asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
 
                         count2_1 += 1
@@ -269,7 +267,7 @@ while True:
 
                 
 
-                asyncio.run(main_숏진입())           # 초기 숏 물량 매수
+                # asyncio.run(main_숏진입())           # 초기 숏 물량 매수
             
             except:
                 error1 += 1
@@ -291,9 +289,10 @@ while True:
                         short_amount = 0
                         count += 1
                         
-                        
+                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
+                        amount = positions[0]['contracts']
 
-                        asyncio.run(main_롱스위칭()) #봇 실행하는 코드
+                       # asyncio.run(main_롱스위칭()) #봇 실행하는 코드
 
                     # 숏 포지션 물량이 없고 비트코인의 현재가가 기준값과 동일할 경우 숏 포지션 생성(롱 포지션 3배 물량)
                     elif short_amount == 0 and simbol_price <= reference_price and count < switching_count:
@@ -303,8 +302,9 @@ while True:
                         long_amount = 0
                         count += 1
                         
-
-                        asyncio.run(main_숏스위칭()) #봇 실행하는 코드
+                        positions = exchange.fetch_positions([symbol], {'type': 'future'})
+                        amount = positions[0]['contracts']
+                        # asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
                     # 롱 포지션만 존재할 경우 묙표가 지점에서 모든 포지션 정리
                     elif short_amount == 0 and long_amount > 0 and simbol_price >= reference_price * (1 + (switching_point + target_point)):
@@ -316,7 +316,7 @@ while True:
                         martin_count = 0
 
                         
-                        asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
+                       # asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
                         if count == 1:
                             count1_1 += 1
@@ -338,7 +338,7 @@ while True:
                         martin_count = 0
 
                         
-                        asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
+                        # asyncio.run(main_n번스위칭후익절()) #봇 실행하는 코드
 
 
                         if count == 1:
@@ -362,7 +362,7 @@ while True:
 
                         
 
-                        asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
+                        # asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
                         count2_1 += 1
 
@@ -383,7 +383,7 @@ while True:
                         count4 += 1
 
                         
-                        asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
+                        # asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
 
                         count2_1 += 1
 
