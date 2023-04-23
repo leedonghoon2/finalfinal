@@ -111,6 +111,7 @@ while True:
                 exchange.create_market_buy_order(symbol, long_amount)
                 positions = exchange.fetch_positions([symbol], {'type': 'future'})
                 reference_price = positions[0]['entryPrice']                   # 기준값 설정
+                amount = positions[0]['contracts']
                 count = 0
                 count3 = 0
                 count4 = 0
@@ -261,6 +262,7 @@ while True:
                 exchange.create_market_sell_order(symbol, short_amount)
                 positions = exchange.fetch_positions([symbol], {'type': 'future'})  # 보유 포지션 조회
                 reference_price = positions[0]['entryPrice']                        # 기준값 설정
+                amount = positions[0]['contracts']
                 count = 0
                 count3 = 0
                 count4 = 0
