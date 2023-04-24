@@ -141,6 +141,7 @@ while True:
                         
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
+                        reference_price = positions[0]['entryPrice'] * (1 + switching_point)
                         # asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
                     # 롱 포지션 물량이 없고 비트코인의 현재가가 기준값과 동일할 경우 롱 포지션 생성(숏 포지션 3배 물량)
@@ -154,6 +155,7 @@ while True:
                         
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
+                        reference_price = positions[0]['entryPrice']
                         # asyncio.run(main_롱스위칭()) #봇 실행하는 코드
 
                     # 숏 포지션만 존재할 경우 묙표가 지점에서 모든 포지션 정리
@@ -293,6 +295,7 @@ while True:
                         
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
+                        reference_price = positions[0]['entryPrice'] * (1 - switching_point)
 
                        # asyncio.run(main_롱스위칭()) #봇 실행하는 코드
 
@@ -306,6 +309,7 @@ while True:
                         
                         positions = exchange.fetch_positions([symbol], {'type': 'future'})
                         amount = positions[0]['contracts']
+                        reference_price = positions[0]['entryPrice']
 
                         # asyncio.run(main_숏스위칭()) #봇 실행하는 코드
 
