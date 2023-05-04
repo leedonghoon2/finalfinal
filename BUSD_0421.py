@@ -46,6 +46,7 @@ martin_limit = 0               # 마틴 리밋
 martin_ratio = 1               # 마틴 배율
 token = ''
 chat_id = ''
+거래코인 = ''
 
 
 async def main_시작(): #실행시킬 함수명 임의지정 
@@ -101,7 +102,7 @@ while True:
             try:
                 # 초기설정 (최소거래수량 확인 필요)
                 balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
-                binance_balance = balance['BUSD']['free']                          # 계좌 잔고 조회
+                binance_balance = balance[거래코인]['free']                          # 계좌 잔고 조회
                 simbol_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
                 if martin_count == 0:                                           # 초기 롱 물량(거래코인 최소거래수량 이상)
                     long_amount = (binance_balance * start * leverage) / simbol_price    
@@ -212,7 +213,7 @@ while True:
 
 
                         count2_1 += 1
-                        count3 += 1
+                        count4 += 1
 
                         asyncio.run(main_정산())
 
@@ -230,7 +231,7 @@ while True:
 
 
                         count2_1 += 1
-                        count4 += 1
+                        count3 += 1
                         
                         asyncio.run(main_정산())
 
@@ -254,7 +255,7 @@ while True:
             try:
                 # 초기설정 (최소거래수량 확인 필요)
                 balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
-                binance_balance = balance['BUSD']['free']                          # 계좌 잔고 조회
+                binance_balance = balance[거래코인]['free']                          # 계좌 잔고 조회
                 simbol_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
                 long_amount = 0                                                 # 초기 롱 물량
                 if martin_count == 0:                                           # 초기 숏 물량(거래코인 최소거래수량 이상)
@@ -362,7 +363,7 @@ while True:
                         exchange.create_market_buy_order(symbol, amount)
                         
                         
-                        count3 += 1
+                        count4 += 1
 
                         
 
@@ -383,7 +384,7 @@ while True:
                         exchange.create_market_sell_order(symbol, amount)
                         
 
-                        count4 += 1
+                        count3 += 1
 
                         
                         # asyncio.run(main_n번스위칭후손절()) #봇 실행하는 코드
