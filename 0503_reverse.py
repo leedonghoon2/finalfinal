@@ -378,7 +378,7 @@ while True:
                         break
 
                     # 롱 보유중 - 마지막 스위칭 후 스위칭 지점에서 모든 포지션 정리
-                    elif short_amount == 0 and simbol_price >= reference_price(1 + switching_point) and count >= switching_count:
+                    elif short_amount == 0 and simbol_price >= reference_price * (1 + switching_point) and count >= switching_count:
                         
                         exchange.create_market_sell_order(symbol, amount)
                         
