@@ -185,7 +185,7 @@ while True:
                             bot = telegram.Bot(token)
                             await bot.send_message(chat_id,'에러2')
 
-                        asyncio.run(main_에러2()) #봇 실행하는 코드
+                        # asyncio.run(main_에러2()) #봇 실행하는 코드
 
                         continue
 
@@ -328,7 +328,7 @@ while True:
                             bot = telegram.Bot(token)
                             await bot.send_message(chat_id,'에러2')
 
-                        asyncio.run(main_에러2()) #봇 실행하는 코드
+                        # asyncio.run(main_에러2()) #봇 실행하는 코드
 
                         continue
 
