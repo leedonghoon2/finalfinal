@@ -6,8 +6,8 @@ import datetime
 import os
 
 # 계좌 조회
-api_key = 'vTDDOmSJjoxPCSF6nvtwY2xOMwYCquFbuh2HTcuDGyVOQRNCudBQulDvwFgsLy88'
-api_secret = '9gu0S6hqgsWHIymS82gniNAs03aN8IP3TfURiOdQK5JEmTL2r2DqR0sG5P09upbs'
+api_key = ''
+api_secret = ''
 
 exchange = ccxt.binance({
     'apiKey': api_key,
@@ -45,8 +45,8 @@ switching_count =  1       # 스위칭 횟수
 leverage = 20              # 레버리지
 symbol = 'EDU/USDT'        # 거래 코인
 start = 0.1
-token = '6199814629:AAEe6VU6PJdbPaa8JrQQhHm-DFRfGkhyqHI'
-chat_id = '6012236354'
+token = ''
+chat_id = ''
 
 
 async def main_시작(): #실행시킬 함수명 임의지정 
