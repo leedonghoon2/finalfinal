@@ -1,3 +1,4 @@
+# 손절시 역방향
 import time
 import ccxt
 import telegram ## pip install python-telegram-bot
