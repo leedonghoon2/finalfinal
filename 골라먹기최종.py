@@ -629,7 +629,7 @@ while True:
                         try:
                             # 초기설정 (최소거래수량 확인 필요)
                             balance = exchange.fetch_balance({'type':'future'})             # 선물 계좌로 변경
-                            binance_balance = balance['BUSD']['free']                          # 계좌 잔고 조회
+                            binance_balance = balance[stablecoin]['free']                          # 계좌 잔고 조회
                             symbol_price = exchange.fetch_ticker(symbol)['last']               # 리플 현재가 조회
                             long_amount = 0                                                 # 초기 롱 물량
                             if martin_count == 0:                                           # 초기 숏 물량(거래코인 최소거래수량 이상)
