@@ -437,8 +437,8 @@ while True:
                                 count3 += 1
                                 count2_1 += 1
                                 ikson30_list.insert(0,0)
-                                if len(ikson30_list) > 30:
-                                    del ikson30_list[30:]
+                                if len(ikson30_list) > ikson_range:
+                                    del ikson30_list[ikson_range:]
                                 break
 
                             # 숏스타트 손절
@@ -446,8 +446,8 @@ while True:
                                 count4 += 1
                                 count2_1 += 1
                                 ikson30_list.insert(0,0)
-                                if len(ikson30_list) > 30:
-                                    del ikson30_list[30:]
+                                if len(ikson30_list) > ikson_range:
+                                    del ikson30_list[ikson_range:]
                                 break
 
                         except:
@@ -572,8 +572,8 @@ while True:
                                     elif count == 0:
                                         count1_0 += 1
                                     ikson30_list.insert(0,1)
-                                    if len(ikson30_list) > 30:
-                                        del ikson30_list[30:]
+                                    if len(ikson30_list) > ikson_range:
+                                        del ikson30_list[ikson_range:]
                                     break
 
                                 # 롱스타트 익절
@@ -587,8 +587,8 @@ while True:
                                     elif count == 0:
                                         count1_0 += 1
                                     ikson30_list.insert(0,1)
-                                    if len(ikson30_list) > 30:
-                                        del ikson30_list[30:]
+                                    if len(ikson30_list) > ikson_range:
+                                        del ikson30_list[ikson_range:]
                                     break
                                     
                                 # 롱스타트 손절
@@ -600,8 +600,8 @@ while True:
                                     if martin_count < martin_limit:
                                         martin_count += 1
                                     ikson30_list.insert(0,0)
-                                    if len(ikson30_list) > 30:
-                                        del ikson30_list[30:]
+                                    if len(ikson30_list) > ikson_range:
+                                        del ikson30_list[ikson_range:]
                                     break
 
                                 # 롱스타트 손절
@@ -613,8 +613,8 @@ while True:
                                     if martin_count < martin_limit:
                                         martin_count += 1
                                     ikson30_list.insert(0,0)
-                                    if len(ikson30_list) > 30:
-                                        del ikson30_list[30:]
+                                    if len(ikson30_list) > ikson_range:
+                                        del ikson30_list[ikson_range:]
                                     break
 
                             except:
@@ -735,8 +735,8 @@ while True:
                                     elif count == 0:
                                         count1_0 += 1
                                     ikson30_list.insert(0,1)
-                                    if len(ikson30_list) > 30:
-                                        del ikson30_list[30:]
+                                    if len(ikson30_list) > ikson_range:
+                                        del ikson30_list[ikson_range:]
                                     break
 
                                 # 숏스타트 익절
@@ -750,8 +750,8 @@ while True:
                                     elif count == 0:
                                         count1_0 += 1
                                     ikson30_list.insert(0,1)
-                                    if len(ikson30_list) > 30:
-                                        del ikson30_list[30:]
+                                    if len(ikson30_list) > ikson_range:
+                                        del ikson30_list[ikson_range:]
                                     break
                                     
                                 # 숏스타트 손절
@@ -763,8 +763,8 @@ while True:
                                     if martin_count < martin_limit:
                                         martin_count += 1
                                     ikson30_list.insert(0,0)
-                                    if len(ikson30_list) > 30:
-                                        del ikson30_list[30:]
+                                    if len(ikson30_list) > ikson_range:
+                                        del ikson30_list[ikson_range:]
                                     break
 
                                 # 숏스타트 손절
@@ -776,8 +776,8 @@ while True:
                                     if martin_count < martin_limit:
                                         martin_count += 1
                                     ikson30_list.insert(0,0)
-                                    if len(ikson30_list) > 30:
-                                        del ikson30_list[30:]
+                                    if len(ikson30_list) > ikson_range:
+                                        del ikson30_list[ikson_range:]
                                     break
 
                             except:
