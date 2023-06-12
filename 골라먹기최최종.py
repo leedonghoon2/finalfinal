@@ -51,6 +51,7 @@ ikson30_stop = 15              # 정지 익절 카운트
 
 token = '6027720676:AAH7TLZOeikzXi3uuo7tMDTfBifhud6wMdk'
 chat_id = '6012236354'
+ikson_range = 
 
 async def main_시작():
     bot = telegram.Bot(token)
@@ -58,7 +59,7 @@ async def main_시작():
 asyncio.run(main_시작())
 
 while True:
-    if len(ikson30_list) < 30:  # 초기 데이터 수집
+    if len(ikson30_list) < ikson_range:  # 초기 데이터 수집
         if count3 >= count4: # 롱스타트
             try:
                 # 초기설정 (최소거래수량 확인 필요)
@@ -107,8 +108,8 @@ while True:
                         elif count == 0:
                             count1_0 += 1
                         ikson30_list.insert(0,1)
-                        if len(ikson30_list) > 30:
-                            del ikson30_list[30:]
+                        if len(ikson30_list) > ikson_range:
+                            del ikson30_list[ikson_range:]
                         break
 
                     # 롱스타트 익절
@@ -119,8 +120,8 @@ while True:
                         elif count == 0:
                             count1_0 += 1
                         ikson30_list.insert(0,1)
-                        if len(ikson30_list) > 30:
-                            del ikson30_list[30:]
+                        if len(ikson30_list) > ikson_range:
+                            del ikson30_list[ikson_range:]
                         break
                         
                     # 롱스타트 손절
@@ -128,8 +129,8 @@ while True:
                         count2_1 += 1
                         count3 += 1
                         ikson30_list.insert(0,0)
-                        if len(ikson30_list) > 30:
-                            del ikson30_list[30:]
+                        if len(ikson30_list) > ikson_range:
+                            del ikson30_list[ikson_range:]
                         break
 
                     # 롱스타트 손절
@@ -137,8 +138,8 @@ while True:
                         count2_1 += 1
                         count4 += 1
                         ikson30_list.insert(0,0)
-                        if len(ikson30_list) > 30:
-                            del ikson30_list[30:]
+                        if len(ikson30_list) > ikson_range:
+                            del ikson30_list[ikson_range:]
                         break
 
                 except:
@@ -207,8 +208,8 @@ while True:
                         elif count == 0:
                             count1_0 += 1
                         ikson30_list.insert(0,1)
-                        if len(ikson30_list) > 30:
-                            del ikson30_list[30:]
+                        if len(ikson30_list) > ikson_range:
+                            del ikson30_list[ikson_range:]
                         break
 
                     # 숏스타트 익절
@@ -219,8 +220,8 @@ while True:
                         elif count == 0:
                             count1_0 += 1
                         ikson30_list.insert(0,1)
-                        if len(ikson30_list) > 30:
-                            del ikson30_list[30:]
+                        if len(ikson30_list) > ikson_range:
+                            del ikson30_list[ikson_range:]
                         break
                         
                     # 숏스타트 손절
@@ -228,8 +229,8 @@ while True:
                         count3 += 1
                         count2_1 += 1
                         ikson30_list.insert(0,0)
-                        if len(ikson30_list) > 30:
-                            del ikson30_list[30:]
+                        if len(ikson30_list) > ikson_range:
+                            del ikson30_list[ikson_range:]
                         break
 
                     # 숏스타트 손절
@@ -237,8 +238,8 @@ while True:
                         count4 += 1
                         count2_1 += 1
                         ikson30_list.insert(0,0)
-                        if len(ikson30_list) > 30:
-                            del ikson30_list[30:]
+                        if len(ikson30_list) > ikson_range:
+                            del ikson30_list[ikson_range:]
                         break
 
                 except:
@@ -257,7 +258,7 @@ while True:
                 await bot.send_message(chat_id, f"{ikson30_list.count(1)}/{ikson30_list.count(0)} 데이터 수집\n{ikson30_list}")
             asyncio.run(main_정산())
 
-    elif len(ikson30_list) >= 30:   # 초기 데이터 수집 이후
+    elif len(ikson30_list) >= ikson_range:   # 초기 데이터 수집 이후
         if ikson30_list.count(1) > ikson30_start: # 손익비 갱신
             while True:
                 if count3 >= count4: # 롱스타트
@@ -310,8 +311,8 @@ while True:
                                 elif count == 0:
                                     count1_0 += 1
                                 ikson30_list.insert(0,1)
-                                if len(ikson30_list) > 30:
-                                    del ikson30_list[30:]
+                                if len(ikson30_list) > ikson_range:
+                                    del ikson30_list[ikson_range:]
                                 break
 
                             # 롱스타트 익절
@@ -322,8 +323,8 @@ while True:
                                 elif count == 0:
                                     count1_0 += 1
                                 ikson30_list.insert(0,1)
-                                if len(ikson30_list) > 30:
-                                    del ikson30_list[30:]
+                                if len(ikson30_list) > ikson_range:
+                                    del ikson30_list[ikson_range:]
                                 break
                                 
                             # 롱스타트 손절
@@ -331,8 +332,8 @@ while True:
                                 count2_1 += 1
                                 count3 += 1
                                 ikson30_list.insert(0,0)
-                                if len(ikson30_list) > 30:
-                                    del ikson30_list[30:]
+                                if len(ikson30_list) > ikson_range:
+                                    del ikson30_list[ikson_range:]
                                 break
 
                             # 롱스타트 손절
@@ -340,8 +341,8 @@ while True:
                                 count2_1 += 1
                                 count4 += 1
                                 ikson30_list.insert(0,0)
-                                if len(ikson30_list) > 30:
-                                    del ikson30_list[30:]
+                                if len(ikson30_list) > ikson_range:
+                                    del ikson30_list[ikson_range:]
                                 break
 
                         except:
@@ -415,8 +416,8 @@ while True:
                                 elif count == 0:
                                     count1_0 += 1
                                 ikson30_list.insert(0,1)
-                                if len(ikson30_list) > 30:
-                                    del ikson30_list[30:]
+                                if len(ikson30_list) > ikson_range:
+                                    del ikson30_list[ikson_range:]
                                 break
 
                             # 숏스타트 익절
@@ -427,8 +428,8 @@ while True:
                                 elif count == 0:
                                     count1_0 += 1
                                 ikson30_list.insert(0,1)
-                                if len(ikson30_list) > 30:
-                                    del ikson30_list[30:]
+                                if len(ikson30_list) > ikson_range:
+                                    del ikson30_list[ikson_range:]
                                 break
                                 
                             # 숏스타트 손절
