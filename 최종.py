@@ -51,8 +51,8 @@ martin_ratio = 1               # 마틴 배율
 ikson_start = 8             # 시작 익절 카운트
 ikson_stop = 6              # 정지 익절 카운트
 
-token = '6199814629:AAEe6VU6PJdbPaa8JrQQhHm-DFRfGkhyqHI'
-chat_id = '6012236354'
+token = ''
+chat_id = ''
 
 async def main_시작():
     while True:
