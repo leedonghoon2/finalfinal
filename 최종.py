@@ -118,7 +118,7 @@ async def main_정산_매매(): #실행시킬 함수명 임의지정
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"{count1_0 + count1_1}/{count2_1} 매매\n{ikson_list.count(1)}/{ikson_list.count(0)} 데이터 갱신\n{ikson_list}")
+            await bot.send_message(chat_id, f"{count1_0}/{count1_1}/{count2_1} 매매\n{ikson_list.count(1)}/{ikson_list.count(0)} 데이터 갱신\n{ikson_list}")
             break
         except:
             await asyncio.sleep(timesleep)
