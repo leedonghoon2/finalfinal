@@ -34,7 +34,7 @@ count_롱_물림갯수 = 0
 count_숏_물림갯수 = 0
 
 익절갭 = 10
-구매갯수 = 10
+구매갯수 = 20
 
 
 async def main_시작():
@@ -66,6 +66,17 @@ async def main_에러1(): #실행시킬 함수명 임의지정
         except:
             await asyncio.sleep(timesleep)
             continue
+
+async def main_정산_매매(): #실행시킬 함수명 임의지정
+    while True:
+        try:
+            bot = telegram.Bot(token)
+            await bot.send_message(chat_id, f"익절 = {count_익절}\n롱 물림 갯수 = {count_롱_물림갯수}\n숏 물림 갯수 = {count_숏_물림갯수}")
+            break
+        except:
+            await asyncio.sleep(timesleep)
+            continue
+
 
 asyncio.run(main_시작())
 
@@ -105,6 +116,9 @@ while True :
                     reference_price = symbol_price
                     count3 += 1
                     count_익절 += 1
+                    
+                    asyncio.run(main_정산_매매())
+                    
                     break
                     
                 if symbol_price <= reference_price - 익절갭:
@@ -118,6 +132,9 @@ while True :
                     reference_price = symbol_price
                     count4 += 1
                     count_롱_물림갯수 += 1
+                    
+                    asyncio.run(main_정산_매매())
+                    
                     break
             except:
                 asyncio.run(main_에러0())
@@ -141,6 +158,9 @@ while True :
                     reference_price = symbol_price
                     count4 += 1
                     count_익절 += 1
+                    
+                    asyncio.run(main_정산_매매())
+                    
                     break
                     
                 if symbol_price <= reference_price + 익절갭:
@@ -153,6 +173,9 @@ while True :
                     symbol_price = exchange.fetch_ticker(symbol)['last']
                     reference_price = symbol_price
                     count3 += 1
+                    
+                    asyncio.run(main_정산_매매())
+                    
                     break
                     
             except:
