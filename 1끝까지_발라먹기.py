@@ -20,7 +20,7 @@ exchange = ccxt.binance({
     }
 })
 
-symbol = 'LQTY/USDT'
+symbol = '/USDT'
 stablecoin = 'USDT'
 
 token = ''
@@ -30,11 +30,12 @@ timesleep = 0.1
 count3 = 0
 count4 = 0
 count_익절 = 0
+count_익절유무 = 1
 count_롱_물림갯수 = 0
 count_숏_물림갯수 = 0
 
-익절갭 = 10
-구매갯수 = 20
+익절갭 = 0.001
+구매갯수 = 300
 
 
 async def main_시작():
@@ -66,6 +67,47 @@ async def main_에러1(): #실행시킬 함수명 임의지정
         except:
             await asyncio.sleep(timesleep)
             continue
+        
+async def main_롱_매수_추적기(): #실행시킬 함수명 임의지정
+    while True:
+        try:
+            bot = telegram.Bot(token)
+            await bot.send_message(chat_id, f"LONG_OPEN = {symbol_price}")
+            break
+        except:
+            await asyncio.sleep(timesleep)
+            continue
+        
+async def main_롱_매도_추적기(): #실행시킬 함수명 임의지정
+    while True:
+        try:
+            bot = telegram.Bot(token)
+            await bot.send_message(chat_id, f"LONG_CLOSE= {symbol_price}")
+            break
+        except:
+            await asyncio.sleep(timesleep)
+            continue
+        
+async def main_숏_매수_추적기(): #실행시킬 함수명 임의지정
+    while True:
+        try:
+            bot = telegram.Bot(token)
+            await bot.send_message(chat_id, f"SHORT_OPEN= {symbol_price}")
+            break
+        except:
+            await asyncio.sleep(timesleep)
+            continue
+        
+async def main_숏_매도_추적기(): #실행시킬 함수명 임의지정
+    while True:
+        try:
+            bot = telegram.Bot(token)
+            await bot.send_message(chat_id, f"SHORT_CLOSE= {symbol_price}")
+            break
+        except:
+            await asyncio.sleep(timesleep)
+            continue
+        
 
 async def main_정산_매매(): #실행시킬 함수명 임의지정
     while True:
@@ -89,13 +131,19 @@ while True:
             'positionSide': 'LONG'
         }
         exchange.create_market_buy_order(symbol, 구매갯수, params)
-        reference_price = symbol_price                                     # 기준값 설정
+        reference_price = symbol_price            # 기준값 설정
+        reference_price_long = symbol_price
+        reference_price_short = reference_price_long
+        asyncio.run(main_롱_매수_추적기())
         count3 += 1
         break
     except:
-        print("에러1")
+        # print("에러1")
         asyncio.run(main_에러1()) #봇 실행하는 코드
         continue
+
+# print("첫 매수 무한루프 탈출완료")
+# print(f"기준가 = {reference_price}")
 
 while True : 
     if count3 >= count4:
@@ -103,39 +151,104 @@ while True :
         count4 = 0
         while True :
             try:
-                symbol_price = exchange.fetch_ticker(symbol)['last'] 
-                if symbol_price >= reference_price + 익절갭:
+                symbol_price = exchange.fetch_ticker(symbol)['last']
+                if count_익절유무 == 0:
+                        if symbol_price >= reference_price_long + 익절갭:
+                            # print("매수조건 충족")
+                            params = {
+                                        'positionSide': 'LONG'
+                                    }
+                            exchange.create_market_sell_order(symbol, 구매갯수, params)
+                            asyncio.run(main_롱_매도_추적기())
+                            exchange.create_market_buy_order(symbol, 구매갯수, params)
+                            asyncio.run(main_롱_매수_추적기())
+                            # print("롱 매수매도 완료")
+                            symbol_price = exchange.fetch_ticker(symbol)['last']    
+                            reference_price = symbol_price
+                            reference_price_long = reference_price
+                            # print("기준가 갱신")
+                            # print(f"기준가 = {reference_price}")
+                            count3 += 1
+                            count_익절 += 1
+                            count_익절유무 += 1
+                            # print("익절")
+                            
+                            asyncio.run(main_정산_매매())
+                            
+                            break
+ 
+                        if symbol_price <= reference_price_short - 익절갭:
+                            # print("매수조건 충족")
+                            params = {
+                                        'positionSide': 'SHORT'
+                                    }
+                            exchange.create_market_sell_order(symbol, 구매갯수, params)
+                            asyncio.run(main_숏_매수_추적기())
+                            # print("숏 오푼")
+                            symbol_price = exchange.fetch_ticker(symbol)['last']
+                            reference_price = symbol_price
+                            reference_price_short = reference_price
                     
-                    params = {
-                                'positionSide': 'LONG'
-                            }
-                    exchange.create_market_sell_order(symbol, 구매갯수, params)
-                    exchange.create_market_buy_order(symbol, 구매갯수, params)
-                    
-                    symbol_price = exchange.fetch_ticker(symbol)['last']    
-                    reference_price = symbol_price
-                    count3 += 1
-                    count_익절 += 1
-                    
-                    asyncio.run(main_정산_매매())
-                    
-                    break
-                    
-                if symbol_price <= reference_price - 익절갭:
-                    
-                    params = {
-                                'positionSide': 'SHORT'
-                            }
-                    exchange.create_market_sell_order(symbol, 구매갯수, params)
-                    
-                    symbol_price = exchange.fetch_ticker(symbol)['last']
-                    reference_price = symbol_price
-                    count4 += 1
-                    count_롱_물림갯수 += 1
-                    
-                    asyncio.run(main_정산_매매())
-                    
-                    break
+                            # print("기준가 갱신")
+                            # print(f"기준가 = {reference_price}")
+                            count4 += 1
+                            count_롱_물림갯수 += 1
+                            count_익절유무 = 0
+                            # print("방향 전환")
+
+                            asyncio.run(main_정산_매매())
+                            
+                            break
+                        
+                if count_익절유무 >= 1:
+                        if symbol_price >= reference_price + 익절갭:
+                                # print("매수조건 충족")
+                                params = {
+                                            'positionSide': 'LONG'
+                                        }
+                                exchange.create_market_sell_order(symbol, 구매갯수, params)
+                                asyncio.run(main_롱_매도_추적기())
+                                exchange.create_market_buy_order(symbol, 구매갯수, params)
+                                asyncio.run(main_롱_매수_추적기())
+                                # print("롱 매수매도 완료")
+                                symbol_price = exchange.fetch_ticker(symbol)['last']    
+                                reference_price = symbol_price
+                                reference_price_long = reference_price
+                                # print("기준가 갱신")
+                                # print(f"기준가 = {reference_price}")
+                                count3 += 1
+                                count_익절 += 1
+                                count_익절유무 += 1
+                                # print("익절")
+                                
+                                asyncio.run(main_정산_매매())
+                                
+                                break
+                            
+                        if symbol_price <= reference_price - 익절갭:
+                                # print("매수조건 충족")
+                                params = {
+                                            'positionSide': 'SHORT'
+                                        }
+                                exchange.create_market_sell_order(symbol, 구매갯수, params)
+                                asyncio.run(main_숏_매수_추적기())
+                                # print("숏 오푼")
+                                symbol_price = exchange.fetch_ticker(symbol)['last']
+                                reference_price = symbol_price
+                                reference_price_short = reference_price
+                        
+                                # print("기준가 갱신")
+                                # print(f"기준가 = {reference_price}")
+                                count4 += 1
+                                count_롱_물림갯수 += 1
+                                count_익절유무 = 0
+                                # print("방향 전환")
+
+                                asyncio.run(main_정산_매매())
+                                
+                                break
+                        
+                        
             except:
                 asyncio.run(main_에러0())
                 continue
@@ -146,38 +259,103 @@ while True :
         while True :
             try:
                 symbol_price = exchange.fetch_ticker(symbol)['last']
-                if symbol_price <= reference_price - 익절갭:
+                if count_익절유무 == 0:
+                        if symbol_price <= reference_price_short - 익절갭:
+                            # print("매수조건 충족")
+                            params = {
+                                        'positionSide': 'SHORT'
+                                    }
+                            exchange.create_market_buy_order(symbol, 구매갯수, params)
+                            asyncio.run(main_숏_매도_추적기())
+                            exchange.create_market_sell_order(symbol, 구매갯수, params)
+                            asyncio.run(main_숏_매수_추적기())
+                            # print("숏 매수매도 완료")
+                            symbol_price = exchange.fetch_ticker(symbol)['last']
+                            reference_price = symbol_price
+                            reference_price_short = reference_price
+                
+                            # print("기준가 갱신")
+                            # print(f"기준가 = {reference_price}")
+                            count4 += 1
+                            count_익절 += 1
+                            count_익절유무 += 1
+                            # print("익절")
+                            
+                            asyncio.run(main_정산_매매())
+                            
+                            break
+                        
+                        if symbol_price >= reference_price_long + 익절갭:
+                            # print("매수조건 충족")
+                            
+                            params = {
+                                        'positionSide': 'LONG'
+                                    }
+                            exchange.create_market_buy_order(symbol, 구매갯수, params)
+                            asyncio.run(main_롱_매수_추적기())
+                            # print("롱 오푼")
+                            symbol_price = exchange.fetch_ticker(symbol)['last']
+                            reference_price = symbol_price
+                            reference_price_long = reference_price
+                            # print("기준가 갱신")
+                            # print(f"기준가 = {reference_price}")
+                            count3 += 1
+                            count_숏_물림갯수 += 1
+                            count_익절유무 = 0
+                            # print("방향 전환")
+                            
+                            asyncio.run(main_정산_매매())
+                            
+                            break
                     
-                    params = {
-                                'positionSide': 'SHORT'
-                            }
-                    exchange.create_market_buy_order(symbol, 구매갯수, params)
-                    exchange.create_market_sell_order(symbol, 구매갯수, params)
-                    
-                    symbol_price = exchange.fetch_ticker(symbol)['last']
-                    reference_price = symbol_price
-                    count4 += 1
-                    count_익절 += 1
-                    
-                    asyncio.run(main_정산_매매())
-                    
-                    break
-                    
-                if symbol_price <= reference_price + 익절갭:
-                    
-                    params = {
-                                'positionSide': 'LONG'
-                            }
-                    exchange.create_market_buy_order(symbol, 구매갯수, params)
-                    
-                    symbol_price = exchange.fetch_ticker(symbol)['last']
-                    reference_price = symbol_price
-                    count3 += 1
-                    
-                    asyncio.run(main_정산_매매())
-                    
-                    break
-                    
+                if count_익절유무 >= 1:
+                        if symbol_price <= reference_price - 익절갭:
+                            # print("매수조건 충족")
+                            params = {
+                                        'positionSide': 'SHORT'
+                                    }
+                            exchange.create_market_buy_order(symbol, 구매갯수, params)
+                            asyncio.run(main_숏_매도_추적기())
+                            exchange.create_market_sell_order(symbol, 구매갯수, params)
+                            asyncio.run(main_숏_매수_추적기())
+                            # print("숏 매수매도 완료")
+                            symbol_price = exchange.fetch_ticker(symbol)['last']
+                            reference_price = symbol_price
+                            reference_price_short = reference_price
+                
+                            # print("기준가 갱신")
+                            # print(f"기준가 = {reference_price}")
+                            count4 += 1
+                            count_익절 += 1
+                            count_익절유무 += 1
+                            # print("익절")
+                            
+                            asyncio.run(main_정산_매매())
+                            
+                            break
+                        
+                        if symbol_price >= reference_price + 익절갭:
+                            # print("매수조건 충족")
+                            
+                            params = {
+                                        'positionSide': 'LONG'
+                                    }
+                            exchange.create_market_buy_order(symbol, 구매갯수, params)
+                            asyncio.run(main_롱_매수_추적기())
+                            # print("롱 오푼")
+                            symbol_price = exchange.fetch_ticker(symbol)['last']
+                            reference_price = symbol_price
+                            reference_price_long = reference_price
+                            # print("기준가 갱신")
+                            # print(f"기준가 = {reference_price}")
+                            count3 += 1
+                            count_숏_물림갯수 += 1
+                            count_익절유무 = 0
+                            # print("방향 전환")
+                            
+                            asyncio.run(main_정산_매매())
+                            
+                            break
             except:
                 asyncio.run(main_에러0())
                 continue
