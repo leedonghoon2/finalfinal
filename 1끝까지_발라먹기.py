@@ -132,8 +132,8 @@ while True:
         }
         exchange.create_market_buy_order(symbol, 구매갯수, params)
         reference_price = symbol_price            # 기준값 설정
-        reference_price_long = symbol_price
-        reference_price_short = reference_price_long
+        reference_price_long = reference_price
+        reference_price_short = reference_price
         asyncio.run(main_롱_매수_추적기())
         count3 += 1
         break
@@ -155,14 +155,7 @@ while True :
                 if count_익절유무 == 0:
                         if symbol_price >= reference_price_long + 익절갭:
                             # print("매수조건 충족")
-                            params = {
-                                        'positionSide': 'LONG'
-                                    }
-                            exchange.create_market_sell_order(symbol, 구매갯수, params)
-                            asyncio.run(main_롱_매도_추적기())
-                            exchange.create_market_buy_order(symbol, 구매갯수, params)
-                            asyncio.run(main_롱_매수_추적기())
-                            # print("롱 매수매도 완료")
+                            
                             symbol_price = exchange.fetch_ticker(symbol)['last']    
                             reference_price = symbol_price
                             reference_price_long = reference_price
@@ -203,14 +196,7 @@ while True :
                 if count_익절유무 >= 1:
                         if symbol_price >= reference_price + 익절갭:
                                 # print("매수조건 충족")
-                                params = {
-                                            'positionSide': 'LONG'
-                                        }
-                                exchange.create_market_sell_order(symbol, 구매갯수, params)
-                                asyncio.run(main_롱_매도_추적기())
-                                exchange.create_market_buy_order(symbol, 구매갯수, params)
-                                asyncio.run(main_롱_매수_추적기())
-                                # print("롱 매수매도 완료")
+                                
                                 symbol_price = exchange.fetch_ticker(symbol)['last']    
                                 reference_price = symbol_price
                                 reference_price_long = reference_price
@@ -262,14 +248,7 @@ while True :
                 if count_익절유무 == 0:
                         if symbol_price <= reference_price_short - 익절갭:
                             # print("매수조건 충족")
-                            params = {
-                                        'positionSide': 'SHORT'
-                                    }
-                            exchange.create_market_buy_order(symbol, 구매갯수, params)
-                            asyncio.run(main_숏_매도_추적기())
-                            exchange.create_market_sell_order(symbol, 구매갯수, params)
-                            asyncio.run(main_숏_매수_추적기())
-                            # print("숏 매수매도 완료")
+                            
                             symbol_price = exchange.fetch_ticker(symbol)['last']
                             reference_price = symbol_price
                             reference_price_short = reference_price
@@ -311,14 +290,7 @@ while True :
                 if count_익절유무 >= 1:
                         if symbol_price <= reference_price - 익절갭:
                             # print("매수조건 충족")
-                            params = {
-                                        'positionSide': 'SHORT'
-                                    }
-                            exchange.create_market_buy_order(symbol, 구매갯수, params)
-                            asyncio.run(main_숏_매도_추적기())
-                            exchange.create_market_sell_order(symbol, 구매갯수, params)
-                            asyncio.run(main_숏_매수_추적기())
-                            # print("숏 매수매도 완료")
+                            
                             symbol_price = exchange.fetch_ticker(symbol)['last']
                             reference_price = symbol_price
                             reference_price_short = reference_price
