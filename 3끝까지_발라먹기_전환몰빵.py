@@ -6,8 +6,8 @@ import datetime
 import os
 
 # 계좌 조회
-api_key = 'RyrXLKBeTj4o5qQPXVelszy4x0KmuA4GLLEjf9fTG3xI5qvKSOQPEYoROtsVVq7V'
-api_secret = 'iLmSAkbZaUKNJKRiIuIZtNxNSauJvKuQTlQRR8noefs3M1urBXkQYbqgLozcIRKR'
+api_key = ''
+api_secret = ''
 
 exchange = ccxt.binance({
     'apiKey': api_key,
@@ -23,8 +23,8 @@ exchange = ccxt.binance({
 symbol = 'HBAR/USDT'
 stablecoin = 'USDT'
 
-token = '6277404128:AAGoL8YfdkfRLRrt8OeOxBuIPwFgwRuOkjI'
-chat_id = '1496944404'
+token = ''
+chat_id = ''
 timesleep = 0.1 
 
 count3 = 0
