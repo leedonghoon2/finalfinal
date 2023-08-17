@@ -6,8 +6,8 @@ import datetime
 import os
 
 # 계좌 조회
-api_key = ''
-api_secret = ''
+api_key = 'RyrXLKBeTj4o5qQPXVelszy4x0KmuA4GLLEjf9fTG3xI5qvKSOQPEYoROtsVVq7V'
+api_secret = 'iLmSAkbZaUKNJKRiIuIZtNxNSauJvKuQTlQRR8noefs3M1urBXkQYbqgLozcIRKR'
 
 exchange = ccxt.binance({
     'apiKey': api_key,
@@ -23,8 +23,8 @@ exchange = ccxt.binance({
 symbol = 'HBAR/USDT'
 stablecoin = 'USDT'
 
-token = ''
-chat_id = ''
+token = '6277404128:AAGoL8YfdkfRLRrt8OeOxBuIPwFgwRuOkjI'
+chat_id = '1496944404'
 timesleep = 0.1 
 
 count3 = 0
@@ -35,7 +35,7 @@ count_롱_물림갯수 = 0
 count_숏_물림갯수 = 0
 count_수량차이 = 0
 
-익절갭 = 0.00035
+익절갭 = 0.0001
 구매갯수 = 100
 
 
@@ -172,6 +172,7 @@ while True :
                                             'positionSide': 'LONG'
                                         }
                                 
+                                
                                 exchange.create_market_buy_order(symbol, 구매갯수, params)
                                 asyncio.run(main_롱_매수_추적기())
                                 # print("롱 매수 완료")
@@ -193,6 +194,8 @@ while True :
                                 params = {
                                             'positionSide': 'SHORT'
                                         }
+                                if count_수량차이 == 0:
+                                    count_수량차이 = 1
                                 exchange.create_market_sell_order(symbol, 구매갯수 * count_수량차이, params)
                                 asyncio.run(main_숏_매수_추적기())
                                 # print("숏 오픈")
@@ -202,7 +205,7 @@ while True :
                                 # print(f"기준가 = {reference_price}")
                                 count4 += 1
                                 count_롱_물림갯수 += 1
-                                count_수량차이 = 1
+                                count_수량차이 = 0
                                 print("방향 전환")
 
                                 asyncio.run(main_정산_매매())
@@ -226,8 +229,9 @@ while True :
                             params = {
                                         'positionSide': 'SHORT'
                                     }
+                            
                             exchange.create_market_sell_order(symbol, 구매갯수, params)
-                            asyncio.run(main_숏_매도_추적기())
+                            asyncio.run(main_숏_매수_추적기())
                             
                             # print("숏 매도 완료")
                             
@@ -250,6 +254,8 @@ while True :
                             params = {
                                         'positionSide': 'LONG'
                                     }
+                            if count_수량차이 == 0:
+                                count_수량차이 = 1
                             exchange.create_market_buy_order(symbol, 구매갯수 * count_수량차이, params)
                             asyncio.run(main_롱_매수_추적기())
                             # print("롱 오픈")
@@ -260,7 +266,7 @@ while True :
                             # print(f"기준가 = {reference_price}")
                             count3 += 1
                             count_숏_물림갯수 += 1
-                            count_수량차이 = 1
+                            count_수량차이 = 0
                             # print("방향 전환")
                             
                             asyncio.run(main_정산_매매())
