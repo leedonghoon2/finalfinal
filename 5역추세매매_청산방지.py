@@ -39,12 +39,12 @@ count_초기화횟수 = 0
 청산물량 = 0
 청산물량_정수 = 0
 
-익절갭 = 0.00050
+익절갭 = 0.00100
 구매갯수 = 100
-초기화발동트리거물량 = 5
-초기화물량 = 5
-포지션최대보유가능갯수 = 80
-스페어물량 = 10
+초기화발동트리거물량 = 2
+초기화물량 = 2
+포지션최대보유가능갯수 = 40
+스페어물량 = 5
 
 async def main_시작():
     while True:
@@ -172,7 +172,7 @@ while True:
 # print(f"기준가 = {reference_price}")
 
 while True : 
-    if count_숏_보유갯수 >= 포지션최대보유가능갯수 - 스페어물량 and count_익절 >= count_숏_보유갯수:
+    if count_숏_보유갯수 >= 포지션최대보유가능갯수 - 스페어물량 and count_익절 >= 1:
         청산물량 = ((2*count_숏_보유갯수 - 1) - ((1 - 2*count_숏_보유갯수)**2 - 8*(count_익절))**(1/2))/2
         청산물량_정수 = int(청산물량) # 소수점 버리는게 유리함
         
@@ -186,7 +186,7 @@ while True :
         asyncio.run(main_숏_한계치도달)
         
         
-    if count_롱_보유갯수 >= 포지션최대보유가능갯수 - 스페어물량 and count_익절 >= count_롱_보유갯수:
+    if count_롱_보유갯수 >= 포지션최대보유가능갯수 - 스페어물량 and count_익절 >= 1:
         청산물량 = ((2*count_숏_보유갯수 - 1) - ((1 - 2*count_숏_보유갯수)**2 - 8*(count_익절))**(1/2))/2
         청산물량_정수 = int(청산물량) # 소수점 버리는게 유리함
         params = {
@@ -212,6 +212,7 @@ while True :
         count_롱_보유갯수 -= 초기화물량
         count_숏_보유갯수 -= 초기화물량
         count_초기화횟수 += 1
+        count_익절 += 초기화물량
         
     if count3 >= count4:
         count3 = 0
@@ -236,8 +237,7 @@ while True :
                                 count3 += 1
                                 count_숏_보유갯수 += 1
                                 
-                                if count_롱_보유갯수 >= count_숏_보유갯수:
-                                    count_익절 += 1
+                               
                                 # print("익절")
                                 
                                 asyncio.run(main_정산_매매())
@@ -260,7 +260,7 @@ while True :
                                 count4 += 1
                             
                                 count_롱_보유갯수 += 1
-                                count_익절 += 1
+                                
                                     
                                 # print("방향 전환")
 
@@ -297,8 +297,7 @@ while True :
                             count4 += 1
                            
                             count_롱_보유갯수 += 1
-                            if count_숏_보유갯수 >= count_롱_보유갯수:
-                                count_익절 += 1
+                            
                             # print("익절")
                             
                             asyncio.run(main_정산_매매())
@@ -321,7 +320,7 @@ while True :
                             count3 += 1
                             
                             count_숏_보유갯수 += 1
-                            count_익절 += 1
+                        
                             # print("방향 전환")
                             
                             asyncio.run(main_정산_매매())
