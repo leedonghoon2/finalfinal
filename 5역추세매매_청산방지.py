@@ -36,8 +36,6 @@ count_숏_물림갯수 = 0
 count_롱_보유갯수 = 0
 count_숏_보유갯수 = 0
 count_초기화횟수 = 0
-청산물량 = 0
-청산물량_정수 = 0
 
 익절갭 = 0.00100
 구매갯수 = 100
@@ -45,6 +43,7 @@ count_초기화횟수 = 0
 초기화물량 = 2
 포지션최대보유가능갯수 = 40
 스페어물량 = 5
+청산물량 = 5
 
 async def main_시작():
     while True:
@@ -120,7 +119,7 @@ async def main_숏_한계치도달(): #실행시킬 함수명 임의지정
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"숏 물량 한계치 도달로 {청산물량_정수}익절 반납\n익절 = {count_익절}")
+            await bot.send_message(chat_id, f"숏 물량 한계치 도달로 {청산물량_숏_손절}익절 반납\n익절 = {count_익절}")
             break
         except:
             await asyncio.sleep(timesleep)
@@ -130,7 +129,7 @@ async def main_롱_한계치도달(): #실행시킬 함수명 임의지정
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"롱 물량 한계치 도달로 {청산물량_정수}익절 반납\n익절 = {count_익절}")
+            await bot.send_message(chat_id, f"롱 물량 한계치 도달로 {청산물량_롱_손절}익절 반납\n익절 = {count_익절}")
             break
         except:
             await asyncio.sleep(timesleep)
@@ -172,30 +171,27 @@ while True:
 # print(f"기준가 = {reference_price}")
 
 while True : 
-    if count_숏_보유갯수 >= 포지션최대보유가능갯수 - 스페어물량 and count_익절 >= 1:
-        청산물량 = ((2*count_숏_보유갯수 - 1) - ((1 - 2*count_숏_보유갯수)**2 - 8*(count_익절))**(1/2))/2
-        청산물량_정수 = int(청산물량) # 소수점 버리는게 유리함
-        
+    if count_숏_보유갯수 >= 포지션최대보유가능갯수 - 스페어물량:
+        청산물량_숏_손절 = (((count_숏_보유갯수 - 1) + (count_숏_보유갯수 - 청산물량)) * 청산물량)/2
         params = {
                     'positionSide': 'SHORT'
                 }
-        exchange.create_market_buy_order(symbol, 구매갯수 * 청산물량_정수, params)
+        exchange.create_market_buy_order(symbol, 구매갯수 * 청산물량, params)
     
-        count_숏_보유갯수 -= 청산물량_정수
-        count_익절 -= 청산물량_정수
+        count_숏_보유갯수 -= 청산물량
+        count_익절 -= 청산물량_숏_손절
         asyncio.run(main_숏_한계치도달)
         
         
-    if count_롱_보유갯수 >= 포지션최대보유가능갯수 - 스페어물량 and count_익절 >= 1:
-        청산물량 = ((2*count_숏_보유갯수 - 1) - ((1 - 2*count_숏_보유갯수)**2 - 8*(count_익절))**(1/2))/2
-        청산물량_정수 = int(청산물량) # 소수점 버리는게 유리함
+    if count_롱_보유갯수 >= 포지션최대보유가능갯수 - 스페어물량:
+        청산물량_롱_손절 = (((count_롱_보유갯수 - 1) + (count_롱_보유갯수 - 청산물량)) * 청산물량)/2
         params = {
                     'positionSide': 'LONG'
                     }
-        exchange.create_market_sell_order(symbol, 구매갯수 * 청산물량_정수, params)
+        exchange.create_market_sell_order(symbol, 구매갯수 * 청산물량, params)
         
-        count_롱_보유갯수 -= 청산물량_정수
-        count_익절 -= 청산물량_정수
+        count_롱_보유갯수 -= 청산물량
+        count_익절 -= 청산물량_롱_손절
         asyncio.run(main_롱_한계치도달)
     
     
