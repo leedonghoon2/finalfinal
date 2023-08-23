@@ -201,8 +201,6 @@ while True :
                 asyncio.run(main_숏_매수_추적기_정산매매())
                 
                 count_숏_보유갯수 += 1
-                
-                asyncio.run(main_정산_매매())
                                     
                 break
             
@@ -216,8 +214,6 @@ while True :
                 
                 count_롱_보유갯수 -= 1
                 
-                asyncio.run(main_정산_매매())
-                                    
                 break
             
         if symbol_price <= reference_price - 익절갭:
@@ -234,8 +230,6 @@ while True :
                 
                 count_숏_보유갯수 -= 1
                 
-                asyncio.run(main_정산_매매())
-                                    
                 break
             
             if count_롱_보유갯수 >= count_숏_보유갯수:
@@ -248,8 +242,6 @@ while True :
                 
                 count_롱_보유갯수 += 1
                 
-                asyncio.run(main_정산_매매())
-                                    
                 break
     except:
         asyncio.run(main_에러0())
