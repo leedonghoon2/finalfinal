@@ -71,7 +71,7 @@ async def main_롱_매수_추적기_정산매매(): #실행시킬 함수명 임�
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"LONG_OPEN = {symbol_price}\n익절 = {count_익절}\n롱 보유 갯수 = {count_롱_보유갯수}\n숏 보유 갯수 = {count_숏_보유갯수}")
+            await bot.send_message(chat_id, f"LONG_OPEN = {symbol_price}\n기준가 = {reference_price}\n\n익절 = {count_익절}\n롱 보유 갯수 = {count_롱_보유갯수}\n숏 보유 갯수 = {count_숏_보유갯수}")
             break
         except:
             await asyncio.sleep(timesleep)
@@ -81,7 +81,7 @@ async def main_롱_매도_추적기_정산매매(): #실행시킬 함수명 임�
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"LONG_CLOSE= {symbol_price}\n익절 = {count_익절}\n롱 보유 갯수 = {count_롱_보유갯수}\n숏 보유 갯수 = {count_숏_보유갯수}")
+            await bot.send_message(chat_id, f"LONG_CLOSE= {symbol_price}\n기준가 = {reference_price}\n\n익절 = {count_익절}\n롱 보유 갯수 = {count_롱_보유갯수}\n숏 보유 갯수 = {count_숏_보유갯수}")
             break
         except:
             await asyncio.sleep(timesleep)
@@ -91,7 +91,7 @@ async def main_숏_매수_추적기_정산매매(): #실행시킬 함수명 임�
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"SHORT_OPEN= {symbol_price}\n익절 = {count_익절}\n롱 보유 갯수 = {count_롱_보유갯수}\n숏 보유 갯수 = {count_숏_보유갯수}")
+            await bot.send_message(chat_id, f"SHORT_OPEN= {symbol_price}\n기준가 = {reference_price}\n\n익절 = {count_익절}\n롱 보유 갯수 = {count_롱_보유갯수}\n숏 보유 갯수 = {count_숏_보유갯수}")
             break
         except:
             await asyncio.sleep(timesleep)
@@ -101,7 +101,7 @@ async def main_숏_매도_추적기_정산매매(): #실행시킬 함수명 임�
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"SHORT_CLOSE= {symbol_price}\n익절 = {count_익절}\n롱 보유 갯수 = {count_롱_보유갯수}\n숏 보유 갯수 = {count_숏_보유갯수}")
+            await bot.send_message(chat_id, f"SHORT_CLOSE= {symbol_price}\n기준가 = {reference_price}\n\n익절 = {count_익절}\n롱 보유 갯수 = {count_롱_보유갯수}\n숏 보유 갯수 = {count_숏_보유갯수}")
             break
         except:
             await asyncio.sleep(timesleep)
@@ -150,8 +150,9 @@ while True:
             'positionSide': 'SHORT'
         }
         exchange.create_market_sell_order(symbol, 구매갯수, params)
-        asyncio.run(main_숏_매수_추적기_정산매매())
         count_숏_보유갯수 += 1
+        asyncio.run(main_숏_매수_추적기_정산매매())
+    
         break
     
     except:
@@ -198,9 +199,9 @@ while True :
                             'positionSide': 'SHORT'
                             }
                 exchange.create_market_sell_order(symbol, 구매갯수, params)
-                asyncio.run(main_숏_매수_추적기_정산매매())
                 
                 count_숏_보유갯수 += 1
+                asyncio.run(main_숏_매수_추적기_정산매매())
                                     
                 break
             
@@ -210,9 +211,9 @@ while True :
                             'positionSide': 'LONG'
                             }
                 exchange.create_market_sell_order(symbol, 구매갯수, params)
-                asyncio.run(main_롱_매도_추적기_정산매매())
                 
                 count_롱_보유갯수 -= 1
+                asyncio.run(main_롱_매도_추적기_정산매매())
                 
                 break
             
@@ -226,9 +227,8 @@ while True :
                             }
                 exchange.create_market_buy_order(symbol, 구매갯수, params)
                 
-                asyncio.run(main_숏_매도_추적기_정산매매())
-                
                 count_숏_보유갯수 -= 1
+                asyncio.run(main_숏_매도_추적기_정산매매())
                 
                 break
             
@@ -238,9 +238,9 @@ while True :
                             'positionSide': 'LONG'
                             }
                 exchange.create_market_buy_order(symbol, 구매갯수, params)
-                asyncio.run(main_롱_매수_추적기_정산매매())
                 
                 count_롱_보유갯수 += 1
+                asyncio.run(main_롱_매수_추적기_정산매매())
                 
                 break
     except:
