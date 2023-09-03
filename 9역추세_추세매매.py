@@ -231,7 +231,7 @@ while True :
                 
                     count_역추세_숏_보유갯수 -= 청산물량
                     count_손절 += 청산물량_숏_손절
-                    asyncio.run(main_숏_한계치도달)
+                    asyncio.run(main_숏_한계치도달())
                     
                     break
                 except:
@@ -249,7 +249,7 @@ while True :
                     
                     count_역추세_롱_보유갯수 -= 청산물량
                     count_손절 += 청산물량_롱_손절
-                    asyncio.run(main_롱_한계치도달)
+                    asyncio.run(main_롱_한계치도달())
                     
                     break
                 except:
@@ -265,8 +265,8 @@ while True :
                     exchange.create_market_buy_order(symbol, 구매갯수 * 추세매매익절발동물량, params)
                     
                     count_추세_숏_보유갯수 -= 추세매매익절발동물량
-                    count_익절 += (추세매매익절발동물량 * (추세매매익절발동물량 - 1))/2
-                    asyncio.run(main_추세_숏_목표값도달)
+                    count_추세매매_익절 += (추세매매익절발동물량 * (추세매매익절발동물량 - 1))/2
+                    asyncio.run(main_추세_숏_목표값도달())
                     
                     break
                 except:
@@ -282,8 +282,8 @@ while True :
                     exchange.create_market_sell_order(symbol, 구매갯수 * 추세매매익절발동물량, params)
                     
                     count_추세_롱_보유갯수 -= 추세매매익절발동물량
-                    count_익절 += (추세매매익절발동물량 * (추세매매익절발동물량 - 1))/2
-                    asyncio.run(main_추세_롱_목표값도달)
+                    count_추세매매_익절 += (추세매매익절발동물량 * (추세매매익절발동물량 - 1))/2
+                    asyncio.run(main_추세_롱_목표값도달())
                     
                     break
                 except:
