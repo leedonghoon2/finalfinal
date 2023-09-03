@@ -198,6 +198,7 @@ while True:
         }
         exchange.create_market_sell_order(symbol, 구매갯수, params)
         
+        count_역추세_숏_보유갯수 += 1
         asyncio.run(main_숏_매수_추적기_정산매매())
         
         params = {
@@ -205,10 +206,8 @@ while True:
         }
         exchange.create_market_buy_order(symbol, 구매갯수, params)
         
-        asyncio.run(main_롱_매수_추적기_정산매매())
-        
-        count_역추세_숏_보유갯수 += 1
         count_추세_롱_보유갯수 += 1
+        asyncio.run(main_롱_매수_추적기_정산매매())
         break
     
     except:
