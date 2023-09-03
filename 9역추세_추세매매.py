@@ -98,7 +98,7 @@ async def main_롱_매수_추적기_정산매매(): #실행시킬 함수명 임�
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"LONG_OPEN = {symbol_price}\n기준가 = {reference_price}\n------------------------\n익절 = {count_익절}\n손절 = {count_손절}\n추세매매 익절 = {count_추세매매_익절}\n------------------------\n(역추세) 롱 보유 갯수 = {count_역추세_롱_보유갯수}\n(역추세) 숏 보유 갯수 = {count_역추세_숏_보유갯수}\n------------------------\n  (추세)  롱 보유 갯수 = {count_추세_롱_보유갯수}\n  (추세)  숏 보유 갯수 = {count_추세_숏_보유갯수}\n------------------------\n롱 보유 갯수 = {count_추세_롱_보유갯수 + count_역추세_롱_보유갯수}\n숏 보유 갯수 = {count_추세_숏_보유갯수 + count_역추세_숏_보유갯수}\n------------------------\n역추세 매매 기대 익절값 = {count_익절}\n역추세+추세 매매 익절 기대값 = {count_익절 - count_손절 + count_추세매매_익절}\n------------------------")
+            await bot.send_message(chat_id, f"LONG_OPEN = {symbol_price}\n기준가 = {reference_price}\n------------------------\n익절 = {count_익절}\n손절 = {count_손절}\n추세매매 익절 = {count_추세매매_익절}\n------------------------\n(역추세) 롱 보유 갯수 = {count_역추세_롱_보유갯수}\n(역추세) 숏 보유 갯수 = {count_역추세_숏_보유갯수}\n------------------------\n  (추세)  롱 보유 갯수 = {count_추세_롱_보유갯수}\n  (추세)  숏 보유 갯수 = {count_추세_숏_보유갯수}\n------------------------\n롱 보유 갯수 = {count_추세_롱_보유갯수 + count_역추세_롱_보유갯수}\n숏 보유 갯수 = {count_추세_숏_보유갯수 + count_역추세_숏_보유갯수}\n------------------------\n역추세 매매 익절 기대값 = {count_익절}\n역추세+추세 매매 익절 기대값 = {count_익절 - count_손절 + count_추세매매_익절}\n------------------------")
             break
         except:
             await asyncio.sleep(timesleep)
@@ -108,7 +108,7 @@ async def main_롱_매도_추적기_정산매매(): #실행시킬 함수명 임�
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"LONG_CLOSE= {symbol_price}\n기준가 = {reference_price}\n------------------------\n익절 = {count_익절}\n손절 = {count_손절}\n추세매매 익절 = {count_추세매매_익절}\n------------------------\n(역추세) 롱 보유 갯수 = {count_역추세_롱_보유갯수}\n(역추세) 숏 보유 갯수 = {count_역추세_숏_보유갯수}\n------------------------\n  (추세)  롱 보유 갯수 = {count_추세_롱_보유갯수}\n  (추세)  숏 보유 갯수 = {count_추세_숏_보유갯수}\n------------------------\n롱 보유 갯수 = {count_추세_롱_보유갯수 + count_역추세_롱_보유갯수}\n숏 보유 갯수 = {count_추세_숏_보유갯수 + count_역추세_숏_보유갯수}\n------------------------\n역추세 매매 기대 익절값 = {count_익절}\n역추세+추세 매매 익절 기대값 = {count_익절 - count_손절 + count_추세매매_익절}\n------------------------")
+            await bot.send_message(chat_id, f"LONG_CLOSE= {symbol_price}\n기준가 = {reference_price}\n------------------------\n익절 = {count_익절}\n손절 = {count_손절}\n추세매매 익절 = {count_추세매매_익절}\n------------------------\n(역추세) 롱 보유 갯수 = {count_역추세_롱_보유갯수}\n(역추세) 숏 보유 갯수 = {count_역추세_숏_보유갯수}\n------------------------\n  (추세)  롱 보유 갯수 = {count_추세_롱_보유갯수}\n  (추세)  숏 보유 갯수 = {count_추세_숏_보유갯수}\n------------------------\n롱 보유 갯수 = {count_추세_롱_보유갯수 + count_역추세_롱_보유갯수}\n숏 보유 갯수 = {count_추세_숏_보유갯수 + count_역추세_숏_보유갯수}\n------------------------\n역추세 매매 익절 기대값 = {count_익절}\n역추세+추세 매매 익절 기대값 = {count_익절 - count_손절 + count_추세매매_익절}\n------------------------")
             break
         except:
             await asyncio.sleep(timesleep)
@@ -118,7 +118,7 @@ async def main_숏_매수_추적기_정산매매(): #실행시킬 함수명 임�
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"SHORT_OPEN= {symbol_price}\n기준가 = {reference_price}\n------------------------\n익절 = {count_익절}\n손절 = {count_손절}\n추세매매 익절 = {count_추세매매_익절}\n------------------------\n(역추세) 롱 보유 갯수 = {count_역추세_롱_보유갯수}\n(역추세) 숏 보유 갯수 = {count_역추세_숏_보유갯수}\n------------------------\n  (추세)  롱 보유 갯수 = {count_추세_롱_보유갯수}\n  (추세)  숏 보유 갯수 = {count_추세_숏_보유갯수}\n------------------------\n롱 보유 갯수 = {count_추세_롱_보유갯수 + count_역추세_롱_보유갯수}\n숏 보유 갯수 = {count_추세_숏_보유갯수 + count_역추세_숏_보유갯수}\n------------------------\n역추세 매매 기대 익절값 = {count_익절}\n역추세+추세 매매 익절 기대값 = {count_익절 - count_손절 + count_추세매매_익절}\n------------------------")
+            await bot.send_message(chat_id, f"SHORT_OPEN= {symbol_price}\n기준가 = {reference_price}\n------------------------\n익절 = {count_익절}\n손절 = {count_손절}\n추세매매 익절 = {count_추세매매_익절}\n------------------------\n(역추세) 롱 보유 갯수 = {count_역추세_롱_보유갯수}\n(역추세) 숏 보유 갯수 = {count_역추세_숏_보유갯수}\n------------------------\n  (추세)  롱 보유 갯수 = {count_추세_롱_보유갯수}\n  (추세)  숏 보유 갯수 = {count_추세_숏_보유갯수}\n------------------------\n롱 보유 갯수 = {count_추세_롱_보유갯수 + count_역추세_롱_보유갯수}\n숏 보유 갯수 = {count_추세_숏_보유갯수 + count_역추세_숏_보유갯수}\n------------------------\n역추세 매매 익절 기대값 = {count_익절}\n역추세+추세 매매 익절 기대값 = {count_익절 - count_손절 + count_추세매매_익절}\n------------------------")
             break
         except:
             await asyncio.sleep(timesleep)
@@ -128,7 +128,7 @@ async def main_숏_매도_추적기_정산매매(): #실행시킬 함수명 임�
     while True:
         try:
             bot = telegram.Bot(token)
-            await bot.send_message(chat_id, f"SHORT_CLOSE= {symbol_price}\n기준가 = {reference_price}\n------------------------\n익절 = {count_익절}\n손절 = {count_손절}\n추세매매 익절 = {count_추세매매_익절}\n------------------------\n(역추세) 롱 보유 갯수 = {count_역추세_롱_보유갯수}\n(역추세) 숏 보유 갯수 = {count_역추세_숏_보유갯수}\n------------------------\n  (추세)  롱 보유 갯수 = {count_추세_롱_보유갯수}\n  (추세)  숏 보유 갯수 = {count_추세_숏_보유갯수}\n------------------------\n롱 보유 갯수 = {count_추세_롱_보유갯수 + count_역추세_롱_보유갯수}\n숏 보유 갯수 = {count_추세_숏_보유갯수 + count_역추세_숏_보유갯수}\n------------------------\n역추세 매매 기대 익절값 = {count_익절}\n역추세+추세 매매 익절 기대값 = {count_익절 - count_손절 + count_추세매매_익절}\n------------------------")
+            await bot.send_message(chat_id, f"SHORT_CLOSE= {symbol_price}\n기준가 = {reference_price}\n------------------------\n익절 = {count_익절}\n손절 = {count_손절}\n추세매매 익절 = {count_추세매매_익절}\n------------------------\n(역추세) 롱 보유 갯수 = {count_역추세_롱_보유갯수}\n(역추세) 숏 보유 갯수 = {count_역추세_숏_보유갯수}\n------------------------\n  (추세)  롱 보유 갯수 = {count_추세_롱_보유갯수}\n  (추세)  숏 보유 갯수 = {count_추세_숏_보유갯수}\n------------------------\n롱 보유 갯수 = {count_추세_롱_보유갯수 + count_역추세_롱_보유갯수}\n숏 보유 갯수 = {count_추세_숏_보유갯수 + count_역추세_숏_보유갯수}\n------------------------\n역추세 매매 익절 기대값 = {count_익절}\n역추세+추세 매매 익절 기대값 = {count_익절 - count_손절 + count_추세매매_익절}\n------------------------")
             break
         except:
             await asyncio.sleep(timesleep)
