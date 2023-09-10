@@ -163,6 +163,7 @@ while True:
         }
         exchange.create_market_sell_order(symbol, 구매갯수, params)
         count_숏_보유갯수 += 1
+        익절갭 = 초기_익절갭
         asyncio.run(main_숏_매수_추적기_정산매매())
     
         break
@@ -178,6 +179,7 @@ while True :
         symbol_price = exchange.fetch_ticker(symbol)['last']
         
         익절갭 = 초기_익절갭 + ((count_롱_보유갯수+count_숏_보유갯수) // 변경_단위갯수) * 변경폭
+        print(익절갭)
         
         if count_숏_보유갯수 >= 포지션최대보유가능갯수 - 스페어물량:
             while True :
