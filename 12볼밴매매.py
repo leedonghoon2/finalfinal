@@ -23,7 +23,7 @@ exchange = ccxt.binance({
 
 # 설정값
 기준갭 = 0.005
-추매비율 = 1.5
+추매비율 = 0.7
 start = 0.05
 leverage = 15 # 레버리지
 timesleep = 0.01 # 대기시간
@@ -169,7 +169,7 @@ while True:
                 elif symbol_price <= upper: # 청산부분
                     exchange.create_market_buy_order(symbol, amount) # 청산
                     count += 1
-                    asyncio.run(main_정산_매매)
+                    asyncio.run(main_정산_매매())
                     break
 
         elif symbol_price <= lower-(lower*기준갭): # 하단밴드 체크
